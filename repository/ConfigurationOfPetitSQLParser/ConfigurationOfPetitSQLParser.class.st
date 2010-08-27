@@ -46,7 +46,7 @@ ConfigurationOfPetitSQLParser >> default: spec [
 		spec blessing: #default.
 		spec repository: 'http://www.squeaksource.com/PetitSQLParser'.
 		spec 
-			package: 'Petit-SQL-Core';
+			package: 'Petit-SQL-Core' with: [spec requires: #('PetitParser for PetitSQLParser')];
 			package: 'Petit-SQL-DraftObjects';
 			package: 'Petit-SQL-Parser' with: [spec requires: #('Petit-SQL-DraftObjects' 'Petit-SQL-Core')];
 			package: 'Petit-SQL-Tests-Core' with: [spec requires: #('Petit-SQL-Core')];
@@ -55,6 +55,13 @@ ConfigurationOfPetitSQLParser >> default: spec [
 		spec group: 'Parser' with: #( 'Petit-SQL-Core').
 		spec group: 'Tests' with: #( 'Petit-SQL-Tests-Core' 'Petit-SQL-Tests-Parser' ).
 		spec group: 'default' with: #('Core' 'Parser' 'Tests').
+		
+		spec project: 'PetitParser for PetitSQLParser' with: [
+				spec
+					className: 'ConfigurationOfPetitParser';
+					file: 'ConfigurationOfPetitParser';
+					version: 'default';
+					repository: 'http://source.lukas-renggli.ch/petit' ].
 
 	]
 ]

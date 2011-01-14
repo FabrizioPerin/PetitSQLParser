@@ -58,7 +58,7 @@ ConfigurationOfPetitSQLParser >> default: spec [
 			package: 'Petit-SQL-DraftObjects';
 			package: 'Petit-SQL-Parser' with: [spec requires: #('Petit-SQL-DraftObjects' 'Petit-SQL-Core')];
 			package: 'Petit-SQL-Tests-Core' with: [spec requires: #('Petit-SQL-Core')];
-			package: 'Petit-SQL-Tests-Parser' with: [spec requires: #('Petit-SQL-Parser')].
+			package: 'Petit-SQL-Tests-Parser' with: [spec requires: #('Petit-SQL-Parser' 'Petit-SQL-Tests-Core')].
 		spec group: 'Core' with: #( 'Petit-SQL-Core' 'Petit-SQL-DraftObjects' 'Petit-SQL-Parser').
 		spec group: 'Parser' with: #( 'Petit-SQL-Core').
 		spec group: 'Tests' with: #( 'Petit-SQL-Tests-Core' 'Petit-SQL-Tests-Parser' ).

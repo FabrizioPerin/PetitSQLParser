@@ -66,7 +66,7 @@ ConfigurationOfPetitSQLParser >> default: spec [
 		spec group: 'Parser' with: #( 'Petit-SQL-Core').
 		spec group: 'Tests' with: #( 'Petit-SQL-Tests-Core' 'Petit-SQL-Tests-Parser' ).
 		spec group: 'Ast' with: #( 'Petit-SQL-ASTVisitor' 'Petit-SQL-ASTNodes' 'Petit-SQL-ASTParser' ).
-		spec group: 'default' with: #('Core' 'Parser' 'Tests').
+		spec group: 'default' with: #('Core' 'Parser' 'Tests' 'Ast').
 		
 		spec project: 'PetitParser for PetitSQLParser' with: [
 				spec
@@ -98,7 +98,7 @@ ConfigurationOfPetitSQLParser >> defaultWithoutPetit: spec [
 		spec group: 'Parser' with: #( 'Petit-SQL-Core').
 		spec group: 'Tests' with: #( 'Petit-SQL-Tests-Core' 'Petit-SQL-Tests-Parser' ).
 		spec group: 'Ast' with: #( 'Petit-SQL-ASTVisitor' 'Petit-SQL-ASTNodes' 'Petit-SQL-ASTParser' ).
-		spec group: 'default' with: #('Core' 'Parser' 'Tests').
+		spec group: 'default' with: #('Core' 'Parser' 'Tests' 'Ast').
 	]
 ]
 

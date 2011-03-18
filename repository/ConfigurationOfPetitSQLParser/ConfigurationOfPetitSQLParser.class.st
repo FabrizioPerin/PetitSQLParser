@@ -84,14 +84,14 @@ ConfigurationOfPetitSQLParser >> defaultWithoutPetit: spec [
 		spec blessing: #default.
 		spec repository: 'http://www.squeaksource.com/PetitSQLParser'.
 		spec 
-			package: 'Petit-SQL-Core' with: [spec requires: #('PetitParser for PetitSQLParser')];
+			package: 'Petit-SQL-Core';
 			package: 'Petit-SQL-Tests-Core' with: [spec requires: #('Petit-SQL-Core')];
 			package: 'Petit-SQL-ASTParser' with: [spec requires: #('Petit-SQL-Core')];
 			package: 'Petit-SQL-ASTNodes' with: [spec requires: #('Petit-SQL-ASTParser')];
 			package: 'Petit-SQL-ASTVisitor' with: [spec requires: #('Petit-SQL-ASTParser')].
 			
 		spec group: 'Ast' with: #( 'Petit-SQL-ASTVisitor' 'Petit-SQL-ASTNodes' 'Petit-SQL-ASTParser' ).
-		spec group: 'Core' with: #( 'Petit-SQL-Core').
+		spec group: 'Core' with: #( 'Petit-SQL-Core' 'Ast').
 		spec group: 'Tests' with: #( 'Petit-SQL-Tests-Core').
 		
 		spec group: 'default' with: #('Core' 'Tests' 'Ast').

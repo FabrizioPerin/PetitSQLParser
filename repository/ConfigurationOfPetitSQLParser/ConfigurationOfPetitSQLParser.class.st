@@ -54,15 +54,14 @@ ConfigurationOfPetitSQLParser >> default: spec [
 		spec blessing: #default.
 		spec repository: 'http://www.squeaksource.com/PetitSQLParser'.
 		spec 
-			package: 'Petit-SQL-Core' with: [spec requires: #('PetitParser for PetitSQLParser')];
-			package: 'Petit-SQL-Tests-Core' with: [spec requires: #('Petit-SQL-Core')];
-			package: 'Petit-SQL-ASTParser' with: [spec requires: #('Petit-SQL-Core')];
-			package: 'Petit-SQL-ASTNodes' with: [spec requires: #('Petit-SQL-ASTParser')];
-			package: 'Petit-SQL-ASTVisitor' with: [spec requires: #('Petit-SQL-ASTParser')].
+			package: 'PetitSQLite-Parser' with: [spec requires: #('PetitParser for PetitSQLParser')];
+			package: 'PetitSQLite-Tests-Parser' with: [spec requires: #('PetitSQLite-Parser')];
+			package: 'PetitSQLite-ASTNodes' with: [spec requires: #('PetitSQLite-Parser')];
+			package: 'PetitSQLite-ASTVisitor' with: [spec requires: #('PetitSQLite-Parser')].
 			
-		spec group: 'Ast' with: #( 'Petit-SQL-ASTVisitor' 'Petit-SQL-ASTNodes' 'Petit-SQL-ASTParser' ).
-		spec group: 'Core' with: #( 'Petit-SQL-Core').
-		spec group: 'Tests' with: #( 'Petit-SQL-Tests-Core').
+		spec group: 'Ast' with: #( 'PetitSQLite-ASTVisitor' 'PetitSQLite-ASTNodes' 'PetitSQLite-Parser' ).
+		spec group: 'Core' with: #( 'PetitSQLite-Parser').
+		spec group: 'Tests' with: #( 'PetitSQLite-Tests-Parser').
 		
 		spec group: 'default' with: #('Core' 'Tests' 'Ast').
 		
@@ -84,15 +83,14 @@ ConfigurationOfPetitSQLParser >> defaultWithoutPetit: spec [
 		spec blessing: #default.
 		spec repository: 'http://www.squeaksource.com/PetitSQLParser'.
 		spec 
-			package: 'Petit-SQL-Core';
-			package: 'Petit-SQL-Tests-Core' with: [spec requires: #('Petit-SQL-Core')];
-			package: 'Petit-SQL-ASTParser' with: [spec requires: #('Petit-SQL-Core')];
-			package: 'Petit-SQL-ASTNodes' with: [spec requires: #('Petit-SQL-ASTParser')];
-			package: 'Petit-SQL-ASTVisitor' with: [spec requires: #('Petit-SQL-ASTParser')].
+			package: 'PetitSQLite-Parser';
+			package: 'PetitSQLite-Tests-Parser' with: [spec requires: #('PetitSQLite-Parser')];
+			package: 'PetitSQLite-ASTNodes' with: [spec requires: #('PetitSQLite-Parser')];
+			package: 'PetitSQLite-ASTVisitor' with: [spec requires: #('PetitSQLite-Parser')].
 			
-		spec group: 'Ast' with: #( 'Petit-SQL-ASTVisitor' 'Petit-SQL-ASTNodes' 'Petit-SQL-ASTParser' ).
-		spec group: 'Core' with: #( 'Petit-SQL-Core' 'Ast').
-		spec group: 'Tests' with: #( 'Petit-SQL-Tests-Core').
+		spec group: 'Ast' with: #( 'PetitSQLite-ASTVisitor' 'PetitSQLite-ASTNodes' 'PetitSQLite-Parser' ).
+		spec group: 'Core' with: #( 'PetitSQLite-Parser').
+		spec group: 'Tests' with: #( 'PetitSQLite-Tests-Parser').
 		
 		spec group: 'default' with: #('Core' 'Tests' 'Ast').
 	]

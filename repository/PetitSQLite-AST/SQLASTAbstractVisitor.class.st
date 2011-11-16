@@ -23,30 +23,31 @@ SQLASTAbstractVisitor >> visit: anElement [
 ]
 
 { #category : #'as yet unclassified' }
-SQLASTAbstractVisitor >> visitASTNode: anElement [
-
-]
-
-{ #category : #'as yet unclassified' }
 SQLASTAbstractVisitor >> visitAlterTableStatementNode: anElement [
+	^ self visit: anElement
 ]
 
 { #category : #'as yet unclassified' }
 SQLASTAbstractVisitor >> visitColumnConstraintNode: anElement [
+	^ self visit: anElement
 ]
 
 { #category : #'as yet unclassified' }
 SQLASTAbstractVisitor >> visitColumnDefNode: anElement [
+	^ self visit: anElement
 ]
 
 { #category : #'as yet unclassified' }
 SQLASTAbstractVisitor >> visitCreateTableNode: anElement [
+	^ self visit: anElement
 ]
 
 { #category : #'as yet unclassified' }
 SQLASTAbstractVisitor >> visitSelectStmtNode: anElement [
+	^ self visit: anElement
 ]
 
 { #category : #'as yet unclassified' }
 SQLASTAbstractVisitor >> visitTableConstraintNode: anElement [
+	^ self visit: anElement
 ]

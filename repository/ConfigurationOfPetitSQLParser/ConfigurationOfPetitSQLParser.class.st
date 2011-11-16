@@ -56,10 +56,9 @@ ConfigurationOfPetitSQLParser >> default: spec [
 		spec 
 			package: 'PetitSQLite-Parser' with: [spec requires: #('PetitParser for PetitSQLParser')];
 			package: 'PetitSQLite-Tests-Parser' with: [spec requires: #('PetitSQLite-Parser')];
-			package: 'PetitSQLite-ASTNodes' with: [spec requires: #('PetitSQLite-Parser')];
-			package: 'PetitSQLite-ASTVisitor' with: [spec requires: #('PetitSQLite-Parser')].
+			package: 'PetitSQLite-AST' with: [spec requires: #('PetitSQLite-Parser')].
 			
-		spec group: 'Ast' with: #( 'PetitSQLite-ASTVisitor' 'PetitSQLite-ASTNodes' 'PetitSQLite-Parser' ).
+		spec group: 'Ast' with: #('PetitSQLite-AST' 'PetitSQLite-Parser' ).
 		spec group: 'Core' with: #( 'PetitSQLite-Parser').
 		spec group: 'Tests' with: #( 'PetitSQLite-Tests-Parser').
 		
@@ -71,7 +70,6 @@ ConfigurationOfPetitSQLParser >> default: spec [
 					file: 'ConfigurationOfPetitParser';
 					version: 'default';
 					repository: 'http://source.lukas-renggli.ch/petit' ].
-
 	]
 ]
 
@@ -85,10 +83,9 @@ ConfigurationOfPetitSQLParser >> defaultWithoutPetit: spec [
 		spec 
 			package: 'PetitSQLite-Parser';
 			package: 'PetitSQLite-Tests-Parser' with: [spec requires: #('PetitSQLite-Parser')];
-			package: 'PetitSQLite-ASTNodes' with: [spec requires: #('PetitSQLite-Parser')];
-			package: 'PetitSQLite-ASTVisitor' with: [spec requires: #('PetitSQLite-Parser')].
+			package: 'PetitSQLite-AST' with: [spec requires: #('PetitSQLite-Parser')].
 			
-		spec group: 'Ast' with: #( 'PetitSQLite-ASTVisitor' 'PetitSQLite-ASTNodes' 'PetitSQLite-Parser' ).
+		spec group: 'Ast' with: #('PetitSQLite-AST' 'PetitSQLite-Parser' ).
 		spec group: 'Core' with: #( 'PetitSQLite-Parser').
 		spec group: 'Tests' with: #( 'PetitSQLite-Tests-Parser').
 		

@@ -1004,6 +1004,13 @@ PetitSQLiteGrammarTest >> testExpressionWithEqual [
 ]
 
 { #category : #tests }
+PetitSQLiteGrammarTest >> testExpressionWithUnequalOperator [
+	self 
+		parse: 'blabla <> 123'
+		rule: #expression.
+]
+
+{ #category : #tests }
 PetitSQLiteGrammarTest >> testExpressionWithWithNameDotName [
 	
 	self 

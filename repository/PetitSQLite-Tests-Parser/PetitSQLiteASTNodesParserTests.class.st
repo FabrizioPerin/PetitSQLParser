@@ -4,7 +4,7 @@ Class {
 	#category : #'PetitSQLite-Tests-Parser'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 PetitSQLiteASTNodesParserTests >> parserClass [
 	^PetitSQLiteASTNodesParser
 ]
@@ -199,7 +199,7 @@ PetitSQLiteASTNodesParserTests >> testAlterTableRenameTable [
 	self assert: (result newTableName = 'TEstName').
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 PetitSQLiteASTNodesParserTests >> testColumnConstraintDefaultWithQuotes [
 	super testColumnConstraintDefaultWithQuotes.
 	
@@ -211,7 +211,7 @@ PetitSQLiteASTNodesParserTests >> testColumnConstraintDefaultWithQuotes [
 	self assert: (result canBeNull = nil).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 PetitSQLiteASTNodesParserTests >> testColumnDefWithEnable [
 	super testColumnDefWithEnable.
 	
@@ -226,7 +226,7 @@ PetitSQLiteASTNodesParserTests >> testColumnDefWithEnable [
 	self assert: (result constraints canBeNull = false).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 PetitSQLiteASTNodesParserTests >> testColumnDefWithLongDefault [
 	super testColumnDefWithLongDefault.
 	
@@ -244,7 +244,7 @@ PetitSQLiteASTNodesParserTests >> testColumnDefWithLongDefault [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 PetitSQLiteASTNodesParserTests >> testCreateTableBigWithPrimaryKeyConstr [
 	super testCreateTableBigWithPrimaryKeyConstr.
 	
@@ -256,7 +256,7 @@ PetitSQLiteASTNodesParserTests >> testCreateTableBigWithPrimaryKeyConstr [
 	self assert: (result constraints first second pkColumnNames first = 'A_xxx_yyy_ID').
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 PetitSQLiteASTNodesParserTests >> testCreateTableWith9Columns [
 	super testCreateTableWith9Columns.
 ]
@@ -415,7 +415,7 @@ PetitSQLiteASTNodesParserTests >> testTableConstraintForeignKeyPartOneFK [
 	self assert: (result referencedTableName = 'tableName').
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 PetitSQLiteASTNodesParserTests >> testTableConstraintPrimaryKeyPartMoreColumns [
 	super testTableConstraintPrimaryKeyPartMoreColumns.
 	
@@ -427,7 +427,7 @@ PetitSQLiteASTNodesParserTests >> testTableConstraintPrimaryKeyPartMoreColumns [
 	self assert: (result pkColumnNames second = 'colSecond').
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 PetitSQLiteASTNodesParserTests >> testTableConstraintPrimaryKeyPartMoreUniqueColumns [
 	super testTableConstraintPrimaryKeyPartMoreUniqueColumns.
 	
@@ -440,7 +440,7 @@ PetitSQLiteASTNodesParserTests >> testTableConstraintPrimaryKeyPartMoreUniqueCol
 	self assert: (result uniqueColumnNames second = 'colSecond').
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 PetitSQLiteASTNodesParserTests >> testTableConstraintPrimaryKeyPartOneColumn [
 	super testTableConstraintPrimaryKeyPartOneColumn.
 
@@ -452,7 +452,7 @@ PetitSQLiteASTNodesParserTests >> testTableConstraintPrimaryKeyPartOneColumn [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 PetitSQLiteASTNodesParserTests >> testTableConstraintPrimaryKeyPartOneUniqueColumn [
 	super testTableConstraintPrimaryKeyPartOneUniqueColumn.
 	

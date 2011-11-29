@@ -431,15 +431,15 @@ PetitSQLiteGrammar >> expression [
 			g left: '&' asParser trim do: [ :a :op :b | { a. op. b } ].
 			g left: '|' asParser trim do: [ :a :op :b | { a. op. b } ] ];
 		group: [ :g |
+			g left: '==' asParser trim do: [ :a :op :b | { a. op. b } ].
+			g left: '!=' asParser trim do: [ :a :op :b | { a. op. b } ].
+			g left: '=' asParser trim do: [ :a :op :b | { a. op. b } ].
+			g left: '<>' asParser trim do: [ :a :op :b | { a. op. b } ].
 			g left: '<=' asParser trim do: [ :a :op :b | { a. op. b } ].
 			g left: '>=' asParser trim do: [ :a :op :b | { a. op. b } ].
 			g left: '<' asParser trim do: [ :a :op :b | { a. op. b } ].
 			g left: '>' asParser trim do: [ :a :op :b | { a. op. b } ]. ];
 		group: [ :g |
-			g left: '==' asParser trim do: [ :a :op :b | { a. op. b } ].
-			g left: '!=' asParser trim do: [ :a :op :b | { a. op. b } ].
-			g left: '=' asParser trim do: [ :a :op :b | { a. op. b } ].
-			g left: '<>' asParser trim do: [ :a :op :b | { a. op. b } ].
 			g left: 'IS NOT ' asParser caseInsensitive trim do: [ :a :op :b | { a. op. b } ].
 			g left: 'IS ' asParser caseInsensitive trim do: [ :a :op :b | { a. op. b } ].
 			g left: 'IN ' asParser caseInsensitive trim do: [ :a :op :b | { a. op. b } ].

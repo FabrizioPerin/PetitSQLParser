@@ -10,6 +10,11 @@ Class {
 }
 
 { #category : #accessing }
+SQLUpdateStatementNode >> from [ 
+	^ {table} 
+]
+
+{ #category : #accessing }
 SQLUpdateStatementNode >> initialize [
 	table := OrderedCollection new.
 	setValue := nil.

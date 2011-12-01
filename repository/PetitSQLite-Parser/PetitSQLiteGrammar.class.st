@@ -123,7 +123,12 @@ Class {
 		'keywords',
 		'keyword',
 		'qualifiedTableName',
-		'deleteStatement'
+		'deleteStatement',
+		'insert',
+		'or',
+		'into',
+		'values',
+		'insertStatement'
 	],
 	#category : #'PetitSQLite-Parser'
 }
@@ -578,9 +583,37 @@ PetitSQLiteGrammar >> initially [
 	^'INITIALLY' asParser caseInsensitive trim
 ]
 
+{ #category : #tokens }
+PetitSQLiteGrammar >> insert [
+	^'INSERT' asParser caseInsensitive trim
+]
+
+{ #category : #statements }
+PetitSQLiteGrammar >> insertStatement [
+	"http://www.sqlite.org/syntaxdiagrams.html#insert-stmt"
+
+	^
+	(replace / 
+	(insert , 
+		(or , (rollback / abort / replace / fail / ignore)) optional)) , 
+	into , 
+	(identifier , $. asParser trim) optional , "databaseName . tableName "
+	(
+	(default , values) /
+		(($( asParser trim , (columnDef separatedBy: $, asParser trim) , $) asParser trim) optional ,
+	((values , $( asParser trim , (expression separatedBy: $, asParser trim) , $) asParser trim) /
+	selectStatement))
+	)
+]
+
 { #category : #'statements-elements' }
 PetitSQLiteGrammar >> integerLiteral [
 	^#digit asParser plus flatten trim
+]
+
+{ #category : #tokens }
+PetitSQLiteGrammar >> into [
+	^'INTO' asParser caseInsensitive trim
 ]
 
 { #category : #'statements-elements' }
@@ -666,6 +699,11 @@ PetitSQLiteGrammar >> on [
 { #category : #tokens }
 PetitSQLiteGrammar >> onConflict [
 	^'ON CONFLICT' asParser caseInsensitive trim
+]
+
+{ #category : #tokens }
+PetitSQLiteGrammar >> or [
+	^'OR' asParser caseInsensitive trim
 ]
 
 { #category : #tokens }
@@ -780,7 +818,8 @@ PetitSQLiteGrammar >> sqlStatement [
 	alterTable /
 	selectStatement /
 	updateStatement /
-	deleteStatement
+	deleteStatement /
+	insertStatement
 	))
 ]
 
@@ -873,6 +912,11 @@ PetitSQLiteGrammar >> updateStatement [
 	qualifiedTableName ,
 	set , ((identifier , '=' asParser caseInsensitive trim , expression) separatedBy: $, asParser trim) ,
 		(where , expression) optional)
+]
+
+{ #category : #tokens }
+PetitSQLiteGrammar >> values [
+	^'VALUES' asParser caseInsensitive trim
 ]
 
 { #category : #tokens }

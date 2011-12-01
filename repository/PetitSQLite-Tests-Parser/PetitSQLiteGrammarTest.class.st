@@ -1358,6 +1358,24 @@ PetitSQLiteGrammarTest >> testInitally [
 ]
 
 { #category : #tests }
+PetitSQLiteGrammarTest >> testInsert [
+	self 
+		parse: ' INSERT ' "result should be 'INSERT' "
+		rule: #insert.
+
+	self 
+		parse: ' Insert ' "result should be 'Insert' "
+		rule: #insert.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testInsertStatment [
+	self 
+		parse: ' blabla '
+		rule: #insertStatement.
+]
+
+{ #category : #tests }
 PetitSQLiteGrammarTest >> testIntegerLiteral [
 	self 
 		parse: '1' "result should be '1' "
@@ -1373,6 +1391,17 @@ PetitSQLiteGrammarTest >> testIntegerLiteralLong [
 		rule: #integerLiteral.
 	
 
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testInto [
+	self 
+		parse: ' INTO ' "result should be 'INTO' "
+		rule: #into.
+
+	self 
+		parse: ' Into ' "result should be 'Into' "
+		rule: #into.
 ]
 
 { #category : #tests }
@@ -1621,6 +1650,18 @@ PetitSQLiteGrammarTest >> testOnConflict [
 ]
 
 { #category : #tests }
+PetitSQLiteGrammarTest >> testOr [
+	self 
+		parse: ' OR' "result should be 'OR' "
+		rule: #or.
+
+	self 
+		parse: 'Or ' "result should be 'Or' "
+		rule: #or.
+
+]
+
+{ #category : #tests }
 PetitSQLiteGrammarTest >> testOrderingTermAsc [
 
 	self 
@@ -1745,6 +1786,17 @@ PetitSQLiteGrammarTest >> testRenameTo [
 	self 
 		parse: ' rename To ' "result should be 'rename To' "
 		rule: #renameTo.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testReplace [
+	self 
+		parse: ' REPLACE ' "result should be 'REPLACE' "
+		rule: #replace.
+
+	self 
+		parse: 'Replace ' "result should be 'Replace' "
+		rule: #replace.
 ]
 
 { #category : #tests }
@@ -1926,6 +1978,14 @@ PetitSQLiteGrammarTest >> testSelectStatementWithQuestionMarks [
 	
 	self 
 		parse: ' select NVALUE from APPDEFAULT where DEFGROUP = ? and SVALUE = ?'
+		rule: #selectStatement.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testSelectStatementWithTRIM [
+	
+	self 
+		parse: 'select TRIM(P_NAME||'', ''||ORT||'', Tel: ''||coalesce(O_TELBUERO ,''-'')||'', Fax: ''||coalesce(O_FAX ,''-'')) str from SYS_VPERSONENROLLEN_DISPLAY where fall_id = 2000001003 and ROLLEID = 1080 and DELETED_X = 0'
 		rule: #selectStatement.
 ]
 
@@ -2419,6 +2479,17 @@ PetitSQLiteGrammarTest >> testUpdateStatementLongerWhere [
 	self 
 		parse: 'Update P_xxx_BLABLA_MO set XXX_OR_N = 100 where xxxID = <@xxxID> and yyyyID = <@yyyyID> and BLA_XX_Y = <%OrId>'
 		rule: #updateStatement.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testValues [
+	self 
+		parse: ' VALUES ' "result should be 'VALUES' "
+		rule: #values.
+
+	self 
+		parse: ' Values ' "result should be 'Values' "
+		rule: #values.
 ]
 
 { #category : #tests }

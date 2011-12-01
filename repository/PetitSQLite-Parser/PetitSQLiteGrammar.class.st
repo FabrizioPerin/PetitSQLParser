@@ -458,7 +458,8 @@ PetitSQLiteGrammar >> expression [
 			g left: 'OR ' asParser caseInsensitive trim do: [ :a :op :b | { a. op. b } ] ];
 		group: [ :g | "Add here the extra functions "
 			g prefix: 'NOT EXISTS ' asParser caseInsensitive trim do: [ :op :b | { op. b } ].
-			g prefix: 'EXISTS ' asParser caseInsensitive trim do: [ :op :b | { op. b } ]. ];
+			g prefix: 'EXISTS ' asParser caseInsensitive trim do: [ :op :b | { op. b } ].
+			g prefix: 'TRIM ' asParser caseInsensitive trim do: [ :op :b | { op. b } ]. ];
 		yourself
 ]
 
@@ -566,11 +567,11 @@ PetitSQLiteGrammar >> initialize [
 { #category : #statements }
 PetitSQLiteGrammar >> initializeKeywords [
 
-	| values |
+	| vals |
 	keywords := Dictionary new.
-	values := #('CROSS' 'INNER' 'JOIN' 'LEFT' 'NATURAL' 'OUTER' 'WHERE' 'NOT' 'BLOB' 'ORDER BY' 'OR').
+	vals := #('CROSS' 'INNER' 'JOIN' 'LEFT' 'NATURAL' 'OUTER' 'WHERE' 'NOT' 'BLOB' 'ORDER BY' 'OR' 'FROM' 'AS').
 	
-	values do: [:eachKeyword |
+	vals do: [:eachKeyword |
 		keywords at: eachKeyword 
 			put: (PPUnresolvedParser named: ('keyword', eachKeyword first asUppercase asString , eachKeyword allButFirst))].
 	
@@ -753,11 +754,12 @@ PetitSQLiteGrammar >> restrict [
 { #category : #'statements-elements' }
 PetitSQLiteGrammar >> resultColumn [
 	"http://www.sqlite.org/syntaxdiagrams.html#result-column"
-	"added identifier.identifier even if it should be into expression"
+
 	^(	$* asParser trim /
+		((identifier , $. asParser , identifier) trim , (as , identifier ) optional) /
 		(identifier , $. asParser , $* asParser) trim /
-		"(identifier , $. asParser , identifier) trim /"
-		(expression , (as , identifier) optional) ).
+		(expression , (as optional , identifier ) optional)
+		 ).
 ]
 
 { #category : #tokens }

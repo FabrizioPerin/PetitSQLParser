@@ -262,6 +262,51 @@ PetitSQLiteASTNodesParserTests >> testCreateTableWith9Columns [
 ]
 
 { #category : #tests }
+PetitSQLiteASTNodesParserTests >> testDeleteStatementSimple [
+	super testDeleteStatementSimple.
+	
+	self assert: (result isMemberOf: SQLDeleteStmtNode).
+	self assert: (result from isMemberOf: OrderedCollection).
+	self assert: result from size equals: 1.
+	self assert: result from first equals: 'TABLEName'.
+	
+]
+
+{ #category : #tests }
+PetitSQLiteASTNodesParserTests >> testDeleteStatementWithComplexWhere [
+	super testDeleteStatementWithComplexWhere.
+	
+	self assert: (result isMemberOf: SQLDeleteStmtNode).
+	self assert: (result from isMemberOf: OrderedCollection).
+	self assert: result from size equals: 1.
+	self assert: result from first equals: 'APPLOCK'.
+	
+	self assert: (result where isMemberOf: OrderedCollection).
+	self assert: result where size equals: 1.
+	self assert: (result where first isMemberOf: Array).
+	self assert: result where first first equals: 'not exists'.
+	self assert: result where first second equals: '(select LOGINID from APPLOGIN where LOGINID = APPLOCK.LOGINID and STATE = ''BUSY'')'.
+	
+]
+
+{ #category : #tests }
+PetitSQLiteASTNodesParserTests >> testDeleteStatementWithSimpleWhere [
+	super testDeleteStatementWithSimpleWhere.
+	
+	self assert: (result isMemberOf: SQLDeleteStmtNode).
+	self assert: (result from isMemberOf: OrderedCollection).
+	self assert: result from size equals: 1.
+	self assert: result from first equals: 'APPLOCK'.
+	
+	self assert: (result where isMemberOf: OrderedCollection).
+	self assert: result where size equals: 1.
+	self assert: (result where first isMemberOf: Array).
+	self assert: result where first first equals: 'not exists'.
+	self assert: result where first second equals: 'APP'.
+	
+]
+
+{ #category : #tests }
 PetitSQLiteASTNodesParserTests >> testSelectCoreWithMoreTablesAndColumns [
 
 	super testSelectCoreWithMoreTablesAndColumns.

@@ -146,6 +146,25 @@ PetitSQLiteASTNodesParser >> createTable [
 		tableNode]
 ]
 
+{ #category : #initialization }
+PetitSQLiteASTNodesParser >> deleteStatement [
+	^ super deleteStatement ==> [ :token | 
+			| deleteStmt |
+			
+			deleteStmt := SQLDeleteStmtNode new.
+			
+			deleteStmt addFrom: token third.
+			
+			(token at: 4) isNil
+				ifFalse: [ 
+					| conditions |
+					conditions := (token at: 4) select: [ :each | each isMemberOf: Array ].
+					conditions do: [ :condition | deleteStmt addWhere: condition ] ].
+			
+			deleteStmt ast: token.
+			deleteStmt ]
+]
+
 { #category : #'statements-elements' }
 PetitSQLiteASTNodesParser >> floatingPointLiteral [ 
 	^super floatingPointLiteral ==> [ :token | (token first , token second asString , token third) value asNumber. ].

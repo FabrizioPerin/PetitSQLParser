@@ -392,7 +392,7 @@ PetitSQLiteGrammar >> delete [
 { #category : #statements }
 PetitSQLiteGrammar >> deleteStatement [
 	"http://www.sqlite.org/syntaxdiagrams.html#delete-stmt"
-	^delete , from , qualifiedTableName , (where , expression) optional 
+	^delete , from , (qualifiedTableName ==> #second) , (where , expression) optional 
 ]
 
 { #category : #tokens }
@@ -457,9 +457,9 @@ PetitSQLiteGrammar >> expression [
 		group: [ :g |
 			g left: 'OR ' asParser caseInsensitive trim do: [ :a :op :b | { a. op. b } ] ];
 		group: [ :g | "Add here the extra functions "
-			g prefix: 'NOT EXISTS ' asParser caseInsensitive trim do: [ :op :b | { op. b } ].
-			g prefix: 'EXISTS ' asParser caseInsensitive trim do: [ :op :b | { op. b } ].
-			g prefix: 'TRIM ' asParser caseInsensitive trim do: [ :op :b | { op. b } ]. ];
+			g prefix: 'NOT EXISTS' asParser caseInsensitive trim do: [ :op :b | { op. b } ].
+			g prefix: 'EXISTS' asParser caseInsensitive trim do: [ :op :b | { op. b } ].
+			g prefix: 'TRIM' asParser caseInsensitive trim do: [ :op :b | { op. b } ]. ];
 		yourself
 ]
 

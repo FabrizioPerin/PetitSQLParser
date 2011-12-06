@@ -569,7 +569,7 @@ PetitSQLiteGrammar >> initializeKeywords [
 
 	| vals |
 	keywords := Dictionary new.
-	vals := #('CROSS' 'INNER' 'JOIN' 'LEFT' 'NATURAL' 'OUTER' 'WHERE' 'NOT' 'BLOB' 'ORDER BY' 'OR' 'FROM' 'AS').
+	vals := #('CROSS' 'INNER' 'JOIN' 'LEFT' 'NATURAL' 'OUTER' 'WHERE' 'NOT' 'BLOB' 'ORDER BY' 'OR' 'FROM').
 	
 	vals do: [:eachKeyword |
 		keywords at: eachKeyword 

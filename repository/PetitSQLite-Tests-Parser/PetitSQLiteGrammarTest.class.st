@@ -2264,43 +2264,10 @@ PetitSQLiteGrammarTest >> testTableColumnsDefinitionTwoFieldsWithComplexDefault 
 ]
 
 { #category : #tests }
-PetitSQLiteGrammarTest >> testTableConstraint [
-
-	self 
-		parse: ' CONSTRAINT testName primary key (ColFirst, colSecond) on conflict fail '
-		rule: #tableConstraint.
-	self 
-		parse: ' CONSTRAINT testName primary key (ColFirst) '
-		rule: #tableConstraint.
-	self 
-		parse: ' CONSTRAINT testName unique (ColFirst, colSecond) '
-		rule: #tableConstraint.
+PetitSQLiteGrammarTest >> testTableConstraintCheck [
 	self 
 		parse: ' CONSTRAINT testName check (ColFirst) '
 		rule: #tableConstraint.
-	self 
-		parse: ' CONSTRAINT testName foreign key (ColFirst, colSecond) references foreignTableName (foo) '
-		rule: #tableConstraint.
-	self 
-		parse: ' CONSTRAINT testName foreign key (ColFirst) references foreignTableName (foo) '
-		rule: #tableConstraint.
-
-	self 
-		parse: ' primary key (ColFirst, colSecond) on conflict abort'
-		rule: #tableConstraint.
-	self 
-		parse: 'unique (ColFirst, colSecond) '
-		rule: #tableConstraint.
-	self 
-		parse: ' check (ColFirst) '
-		rule: #tableConstraint.
-	self 
-		parse: ' foreign key (ColFirst, colSecond) references foreignTableName (foo) '
-		rule: #tableConstraint.
-	self 
-		parse: ' foreign key (ColFirst) references foreignTableName (foo) '
-		rule: #tableConstraint.
-	
 ]
 
 { #category : #tests }
@@ -2308,6 +2275,21 @@ PetitSQLiteGrammarTest >> testTableConstraintCheckPart [
 	self 
 		parse: ' check ( ColFirst ) '
 		rule: #tableConstraintCheckPart.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testTableConstraintFK [
+	self 
+		parse: ' CONSTRAINT testName foreign key (ColFirst) references foreignTableName (foo) '
+		rule: #tableConstraint.	
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testTableConstraintFKs [
+	self 
+		parse: ' CONSTRAINT testName foreign key (ColFirst, colSecond) references foreignTableName (foo) '
+		rule: #tableConstraint.
+
 ]
 
 { #category : #tests }
@@ -2327,6 +2309,14 @@ PetitSQLiteGrammarTest >> testTableConstraintForeignKeyPartMoreFKsAndMatchClause
 ]
 
 { #category : #tests }
+PetitSQLiteGrammarTest >> testTableConstraintForeignKeyPartMoreFKsReferecingTableAndFoo [
+
+	self 
+		parse: ' foreign key (ColFirst, colSecond) references tableName (foo)'
+		rule: #tableConstraintForeignKeyPart.
+]
+
+{ #category : #tests }
 PetitSQLiteGrammarTest >> testTableConstraintForeignKeyPartOneFK [
 
 	self 
@@ -2335,7 +2325,48 @@ PetitSQLiteGrammarTest >> testTableConstraintForeignKeyPartOneFK [
 ]
 
 { #category : #tests }
+PetitSQLiteGrammarTest >> testTableConstraintForeignKeyPartOneFKReferencesTable [
+
+	self 
+		parse: ' foreign key (ColFirst) references tableName'
+		rule: #tableConstraintForeignKeyPart.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testTableConstraintForeignKeyPartOneFKReferencesTableAndFoo [
+
+	self 
+		parse: ' foreign key (ColFirst) references tableName (foo)'
+		rule: #tableConstraintForeignKeyPart.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testTableConstraintPK [
+
+	self 
+		parse: ' CONSTRAINT testName primary key (ColFirst) '
+		rule: #tableConstraint.
+
+
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testTableConstraintPKsOnConflictFail [
+	self 
+		parse: ' CONSTRAINT testName primary key (ColFirst, colSecond) on conflict fail '
+		rule: #tableConstraint.
+]
+
+{ #category : #tests }
 PetitSQLiteGrammarTest >> testTableConstraintPrimaryKeyPartMoreColumns [
+
+	self 
+		parse: ' primary key (ColFirst, colSecond)'
+		rule: #tableConstraintPrimaryKeyPart.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testTableConstraintPrimaryKeyPartMoreColumnsOnConflictFail [
 
 	self 
 		parse: ' primary key (ColFirst, colSecond) on conflict fail '
@@ -2370,6 +2401,13 @@ PetitSQLiteGrammarTest >> testTableConstraintPrimaryKeyPartOneUniqueColumn [
 PetitSQLiteGrammarTest >> testTableConstraintPrimaryKeyPartWithUniqueOnMoreColumns [
 
 	self 
+		parse: ' unique (ColFirst, colSecond)'
+		rule: #tableConstraintPrimaryKeyPart.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testTableConstraintPrimaryKeyPartWithUniqueOnMoreColumnsOnConflictRollback [
+	self 
 		parse: ' unique (ColFirst, colSecond) on conflict rollback'
 		rule: #tableConstraintPrimaryKeyPart.
 ]
@@ -2380,6 +2418,13 @@ PetitSQLiteGrammarTest >> testTableConstraintPrimaryKeyPartWithUniqueOnOneColumn
 	self 
 		parse: ' unique ( colSecond) '
 		rule: #tableConstraintPrimaryKeyPart.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testTableConstraintUniques [
+	self 
+		parse: ' CONSTRAINT testName unique (ColFirst, colSecond) '
+		rule: #tableConstraint.
 ]
 
 { #category : #tests }

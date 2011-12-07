@@ -598,10 +598,10 @@ PetitSQLiteGrammar >> insertStatement [
 	(insert , 
 		(or , (rollback / abort / replace / fail / ignore)) optional)) , 
 	into , 
-	(identifier , $. asParser trim) optional , "databaseName . tableName "
+	(identifier , $. asParser trim) optional , identifier , "databaseName . tableName "
 	(
 	(default , values) /
-		(($( asParser trim , (columnDef separatedBy: $, asParser trim) , $) asParser trim) optional ,
+		(($( asParser trim , (identifier separatedBy: $, asParser trim) , $) asParser trim) optional ,
 	((values , $( asParser trim , (expression separatedBy: $, asParser trim) , $) asParser trim) /
 	selectStatement))
 	)
@@ -659,7 +659,14 @@ PetitSQLiteGrammar >> keyword [
 PetitSQLiteGrammar >> literalValue [
 	"http://www.sqlite.org/syntaxdiagrams.html#literal-value"
 	"It is really important the order how those elements because most of them are prefix for someone else "
-	^ null / currentTimestamp / currentDate / currentTime / $? asParser trim / ($' asParser trim optional , (floatingPointLiteral / integerLiteral / identifier / blobLiteral) , $' asParser trim optional) / identifier
+	^
+	null / 
+	currentTimestamp / 
+	currentDate / 
+	currentTime / 
+	$? asParser trim / 
+	($' asParser trim optional , (floatingPointLiteral / integerLiteral / identifier / blobLiteral) , $' asParser trim optional) 
+	/ identifier
 ]
 
 { #category : #tokens }

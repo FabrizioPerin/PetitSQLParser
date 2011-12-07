@@ -123,7 +123,7 @@ PetitSQLiteASTNodesParser >> columnDef [
 		colNode := SQLColumnDefNode new.
 		
 		colNode name: token second.
-		colNode type: token third first.		
+		token third isNil ifFalse: [colNode type: token third first.	].
 		colNode constraints: (token at: 4).
 		
 		colNode]
@@ -169,6 +169,23 @@ PetitSQLiteASTNodesParser >> deleteStatement [
 PetitSQLiteASTNodesParser >> floatingPointLiteral [ 
 	^super floatingPointLiteral ==> [ :token | (token first , token second asString , token third) value asNumber. ].
 
+]
+
+{ #category : #initialization }
+PetitSQLiteASTNodesParser >> insertStatement [
+	^super insertStatement ==> [:token |
+		| insertStmt |
+		insertStmt := SQLInsertStatementNode new.
+		
+		insertStmt table: (token at: 4). 
+		(token at: 5) isEmpty ifFalse:[
+			(token at: 5) first isNil ifFalse: [
+				insertStmt affectedColumns: ((token at: 5) first second reject: [:each | each = $,])].
+		 	(token at: 5) second isNil ifFalse: [
+				insertStmt values: ((token at: 5) second third reject: [:each | each = $,])]].
+		
+		insertStmt
+		]
 ]
 
 { #category : #'statements-elements' }

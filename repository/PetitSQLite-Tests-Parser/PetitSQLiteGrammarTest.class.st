@@ -1415,9 +1415,37 @@ PetitSQLiteGrammarTest >> testInsert [
 ]
 
 { #category : #tests }
-PetitSQLiteGrammarTest >> testInsertStatment [
+PetitSQLiteGrammarTest >> testInsertStatmentIntoSpecificField [
 	self 
-		parse: ' blabla '
+		parse: 'INSERT INTO table_name (column1) VALUES (value1)'
+		rule: #insertStatement.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testInsertStatmentIntoSpecificFields [
+	self 
+		parse: 'INSERT INTO table_name (column1, column2, column3) VALUES (value1, ''value2'', ''value3'')'
+		rule: #insertStatement.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testInsertStatmentIntoSpecificFieldsVariousTypes [
+	self 
+		parse: 'INSERT INTO Persons VALUES (4,''Nilsen'', ''Johan'', ''Bakken2'', ''Stavanger'')'
+		rule: #insertStatement.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testInsertStatmentIntoThreeValues [
+	self 
+		parse: 'INSERT INTO table_name VALUES (value1, value2, value3)'
+		rule: #insertStatement.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testInsertStatmentOneValue [
+	self 
+		parse: 'INSERT INTO table_name VALUES (value1)'
 		rule: #insertStatement.
 ]
 

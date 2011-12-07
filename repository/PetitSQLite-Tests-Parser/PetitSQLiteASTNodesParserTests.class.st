@@ -212,6 +212,23 @@ PetitSQLiteASTNodesParserTests >> testColumnConstraintDefaultWithQuotes [
 ]
 
 { #category : #tests }
+PetitSQLiteASTNodesParserTests >> testColumnDefJustColName [
+	super testColumnDefJustColName.
+	
+	self assert: (result isMemberOf: SQLColumnDefNode).  	
+	self assert: result name equals: 'colName'.
+	self assert: result type equals: nil.
+	self assert: (result constraints isMemberOf: SQLColumnConstraintNode).
+	self assert: result constraints name equals: nil.
+	self assert: result constraints defaultValue equals: nil.
+	self assert: result constraints isUnique equals: nil.
+	self assert: result constraints isPK equals: nil.
+	self assert: result constraints canBeNull equals: nil.
+	
+	
+]
+
+{ #category : #tests }
 PetitSQLiteASTNodesParserTests >> testColumnDefWithEnable [
 	super testColumnDefWithEnable.
 	
@@ -304,6 +321,88 @@ PetitSQLiteASTNodesParserTests >> testDeleteStatementWithSimpleWhere [
 	self assert: result where first first equals: 'not exists'.
 	self assert: result where first second equals: 'APP'.
 	
+]
+
+{ #category : #tests }
+PetitSQLiteASTNodesParserTests >> testInsertStatmentIntoSpecificField [
+	"'INSERT INTO table_name (column1) VALUES (value1)'"
+	super testInsertStatmentIntoSpecificField.
+	
+	self assert: (result isMemberOf: SQLInsertStatementNode).
+	self assert: result table equals: 'table_name'.
+	self assert: result affectedColumns size equals: 1.
+	self assert: result affectedColumns first equals: 'column1'.
+	self assert: result values size equals: 1.
+	self assert: result values first equals: 'value1'.
+]
+
+{ #category : #tests }
+PetitSQLiteASTNodesParserTests >> testInsertStatmentIntoSpecificFields [
+
+	"'INSERT INTO table_name (column1, column2, column3) VALUES (value1, ''value2'', value3)'"
+	super testInsertStatmentIntoSpecificFields.
+
+	self assert: (result isMemberOf: SQLInsertStatementNode).
+	self assert: result table equals: 'table_name'.
+	
+	self assert: result affectedColumns size equals: 3.
+	self assert: result affectedColumns first equals: 'column1'.
+	self assert: result affectedColumns second equals: 'column2'.
+	self assert: result affectedColumns third equals: 'column3'.
+	
+	self assert: result values size equals: 3.
+	self assert: result values first equals: 'value1'.
+	self assert: result values second equals: '''value2'''.
+	self assert: result values third equals: '''value3'''.
+]
+
+{ #category : #tests }
+PetitSQLiteASTNodesParserTests >> testInsertStatmentIntoSpecificFieldsVariousTypes [
+	"'INSERT INTO Persons VALUES (4,''Nilsen'', ''Johan'', ''Bakken2'', ''Stavanger'')'"
+	super testInsertStatmentIntoSpecificFieldsVariousTypes.
+	
+	
+	self assert: (result isMemberOf: SQLInsertStatementNode).
+	self assert: result table equals: 'Persons'.
+	
+	self assert: result affectedColumns size equals: 0.
+	
+	self assert: result values size equals: 5.
+	self assert: result values first equals: '4'.
+	self assert: result values second equals: '''Nilsen'''.
+	self assert: result values third equals: '''Johan'''.
+	self assert: (result values at: 4) equals: '''Bakken2'''.
+	self assert: (result values at: 5) equals: '''Stavanger'''.
+]
+
+{ #category : #tests }
+PetitSQLiteASTNodesParserTests >> testInsertStatmentIntoThreeValues [
+	"'INSERT INTO table_name VALUES (value1, value2, value3)'"
+	super testInsertStatmentIntoThreeValues.
+	
+	self assert: (result isMemberOf: SQLInsertStatementNode).
+	self assert: result table equals: 'table_name'.
+	
+	self assert: result affectedColumns size equals: 0.
+	
+	self assert: result values size equals: 3.
+	self assert: result values first equals: 'value1'.
+	self assert: result values second equals: 'value2'.
+	self assert: result values third equals: 'value3'.
+]
+
+{ #category : #tests }
+PetitSQLiteASTNodesParserTests >> testInsertStatmentOneValue [
+	"'INSERT INTO table_name VALUES (value1)'"
+	super testInsertStatmentOneValue.
+
+	self assert: (result isMemberOf: SQLInsertStatementNode).
+	self assert: result table equals: 'table_name'.
+	
+	self assert: result affectedColumns size equals: 0.
+	
+	self assert: result values size equals: 1.
+	self assert: result values first equals: 'value1'.
 ]
 
 { #category : #tests }

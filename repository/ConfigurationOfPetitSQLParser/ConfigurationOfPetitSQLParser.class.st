@@ -26,8 +26,7 @@ ConfigurationOfPetitSQLParser class >> isMetacelloConfig [
 
 { #category : #loading }
 ConfigurationOfPetitSQLParser class >> loadDefault [
-
-	(self project version: 'default') load.
+	(self project version: #development) load.
 
 
 ]
@@ -47,8 +46,8 @@ ConfigurationOfPetitSQLParser class >> project [
 ]
 
 { #category : #baselines }
-ConfigurationOfPetitSQLParser >> default: spec [ 
-	<version: 'default'>
+ConfigurationOfPetitSQLParser >> baseline10: spec [ 
+	<version: '1.0-baseline'>
 	
 	spec for: #common do: [
 		spec blessing: #default.
@@ -74,6 +73,13 @@ ConfigurationOfPetitSQLParser >> default: spec [
 ]
 
 { #category : #baselines }
+ConfigurationOfPetitSQLParser >> default: spec [ 
+	<version: 'default'>
+	
+	self baseline10: spec
+]
+
+{ #category : #baselines }
 ConfigurationOfPetitSQLParser >> defaultWithoutPetit: spec [ 
 	<version: 'defaultWithoutPetit'>
 	
@@ -91,6 +97,15 @@ ConfigurationOfPetitSQLParser >> defaultWithoutPetit: spec [
 		
 		spec group: 'default' with: #('Core' 'Tests' 'Ast').
 	]
+]
+
+{ #category : #baselines }
+ConfigurationOfPetitSQLParser >> development: spec [ 
+	<symbolicVersion: #development>
+	
+	spec for: #'pharo1.3.x' version: '1.0-baseline' 
+		
+
 ]
 
 { #category : #accessing }

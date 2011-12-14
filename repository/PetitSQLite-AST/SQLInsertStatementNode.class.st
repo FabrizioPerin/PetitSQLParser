@@ -30,6 +30,11 @@ SQLInsertStatementNode >> affectedColumns: aCollection [
 ]
 
 { #category : #accessing }
+SQLInsertStatementNode >> from [ 
+	^ {self table}
+]
+
+{ #category : #accessing }
 SQLInsertStatementNode >> initialize [
 	super initialize.
 	

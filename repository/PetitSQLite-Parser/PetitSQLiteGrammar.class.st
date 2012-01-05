@@ -128,7 +128,8 @@ Class {
 		'or',
 		'into',
 		'values',
-		'insertStatement'
+		'insertStatement',
+		'complexIdentifier'
 	],
 	#category : #'PetitSQLite-Parser'
 }
@@ -291,6 +292,11 @@ PetitSQLiteGrammar >> columnTypes [
 	'text' asParser caseInsensitive trim / "postgress specfic type"
 	'name' asParser caseInsensitive trim. "postgress specfic type"
 	
+]
+
+{ #category : #'statements-elements' }
+PetitSQLiteGrammar >> complexIdentifier [
+	^ (identifier , $. asParser) optional , identifier
 ]
 
 { #category : #tokens }
@@ -814,7 +820,7 @@ PetitSQLiteGrammar >> singleSource [
 	
 	^(	($( asParser trim , joinSource , $) asParser trim) /
 		($( asParser trim , selectStatement , $) asParser trim ,  as optional , identifier optional ) /
-		((identifier , $. asParser) optional , identifier , (as optional , identifier) optional , ((indexed , by , identifier) / notIndexed ) optional))
+		(complexIdentifier , (as optional , identifier) optional , ((indexed , by , identifier) / notIndexed ) optional))
 ]
 
 { #category : #statements }

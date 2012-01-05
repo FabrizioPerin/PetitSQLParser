@@ -129,6 +129,16 @@ PetitSQLiteASTNodesParser >> columnDef [
 		colNode]
 ]
 
+{ #category : #'statements-elements' }
+PetitSQLiteASTNodesParser >> complexIdentifier [
+	^ (identifier , $. asParser) optional , identifier
+	
+	==> [ :token | 
+		token first isNil 
+			ifTrue: [token second]
+			ifFalse: [token first first , '.' , token second]]
+]
+
 { #category : #statements }
 PetitSQLiteASTNodesParser >> createTable [
 
@@ -207,18 +217,18 @@ PetitSQLiteASTNodesParser >> selectCore [
 
 			token do: [:each |
 				each isArray ifTrue: [
-					(('from' compare: each first asString caseSensitive: false) = 2)
+					('from' = each first asString asLowercase)
 					ifTrue: [
 						each second do:[:tables |
 							tables isEmpty not ifTrue:[
 								tables first isArray 
 									ifTrue: [
 										tables do: [:el |
-											selectStmt addFrom: el second second]
+											selectStmt addFrom: el second first]
 										] 
-									ifFalse: [selectStmt addFrom: tables second]. 
+									ifFalse: [selectStmt addFrom: tables first]. 
 						]]]].
-				(('select' compare: each asString caseSensitive: false) = 2)
+				('select' = each asString asLowercase)
 					ifTrue: [
 						token third isArray 
 							ifTrue: [

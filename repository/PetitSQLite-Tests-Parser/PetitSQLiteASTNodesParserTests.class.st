@@ -406,6 +406,15 @@ PetitSQLiteASTNodesParserTests >> testInsertStatmentOneValue [
 ]
 
 { #category : #tests }
+PetitSQLiteASTNodesParserTests >> testSelectCoreWithComplexFrom [
+
+	super testSelectCoreWithComplexFrom.
+	
+	self assert: result from size = 1.
+	self assert: result from first = 'prefix.TABLE'
+]
+
+{ #category : #tests }
 PetitSQLiteASTNodesParserTests >> testSelectCoreWithMoreTablesAndColumns [
 
 	super testSelectCoreWithMoreTablesAndColumns.

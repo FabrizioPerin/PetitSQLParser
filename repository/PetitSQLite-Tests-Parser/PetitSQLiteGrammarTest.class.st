@@ -1940,6 +1940,14 @@ PetitSQLiteGrammarTest >> testSelect [
 ]
 
 { #category : #tests }
+PetitSQLiteGrammarTest >> testSelectCoreWithComplexFrom [
+
+	self 
+		parse: 'select SOMETHING from prefix.TABLE where COLUMN = ''XYZ'''
+		rule: #selectCore
+]
+
+{ #category : #tests }
 PetitSQLiteGrammarTest >> testSelectCoreWithMoreTablesAndColumns [
 
 	self 

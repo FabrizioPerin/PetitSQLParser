@@ -131,7 +131,7 @@ PetitSQLiteASTNodesParser >> columnDef [
 
 { #category : #'statements-elements' }
 PetitSQLiteASTNodesParser >> complexIdentifier [
-	^ (identifier , $. asParser) optional , identifier
+	^super complexIdentifier
 	
 	==> [ :token | 
 		token first isNil 

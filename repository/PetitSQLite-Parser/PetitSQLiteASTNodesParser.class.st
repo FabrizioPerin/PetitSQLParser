@@ -131,7 +131,7 @@ PetitSQLiteASTNodesParser >> columnDef [
 
 { #category : #'statements-elements' }
 PetitSQLiteASTNodesParser >> complexIdentifier [
-	^ (identifier , $. asParser) optional , identifier
+	^super complexIdentifier
 	
 	==> [ :token | 
 		token first isNil 
@@ -192,7 +192,8 @@ PetitSQLiteASTNodesParser >> insertStatement [
 			(token at: 5) first isNil ifFalse: [
 				insertStmt affectedColumns: ((token at: 5) first second reject: [:each | each = $,])].
 		 	(token at: 5) second isNil ifFalse: [
-				insertStmt values: ((token at: 5) second third reject: [:each | each = $,])]].
+				(token at: 5) second isArray ifTrue: [
+					insertStmt values: ((token at: 5) second third reject: [:each | each = $,])]] ].
 		
 		insertStmt
 		]

@@ -1276,6 +1276,27 @@ PetitSQLiteGrammarTest >> testIdentifierWithBrachets [
 ]
 
 { #category : #tests }
+PetitSQLiteGrammarTest >> testIdentifierWithKeyword [
+	self 
+		fail: 'FROM'
+		rule: #identifier.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testIdentifierWithKeywordAsPrefix [
+	self 
+		parse: 'FROMASDFQEW'
+		rule: #identifier.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testIdentifierWithKeywordAsPrefixWithPunctuation [
+	self 
+		parse: 'FROM_ASDFQEW'
+		rule: #identifier.
+]
+
+{ #category : #tests }
 PetitSQLiteGrammarTest >> testIdentifierWithNumbers [
 	self 
 		parse: '  A18b_dff_  '

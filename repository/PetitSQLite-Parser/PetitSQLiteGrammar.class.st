@@ -582,7 +582,7 @@ PetitSQLiteGrammar >> initializeKeywords [
 			put: (PPUnresolvedParser named: ('keyword', eachKeyword first asUppercase asString , eachKeyword allButFirst))].
 	
 	keywords keysAndValuesDo:  [:key :value |
-		(keywords at: key) def: (key asParser caseInsensitive ,  #word asParser not) token]
+		(keywords at: key) def: (key asParser caseInsensitive ,  (#punctuation asParser optional , #word asParser) not ) token]
 ]
 
 { #category : #tokens }

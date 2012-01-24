@@ -129,7 +129,10 @@ Class {
 		'into',
 		'values',
 		'insertStatement',
-		'complexIdentifier'
+		'complexIdentifier',
+		'singleSourceJoinSourceInRBPart',
+		'singleSourceSelectStmtInRBPart',
+		'singleSourceIdentifierPart'
 	],
 	#category : #'PetitSQLite-Parser'
 }
@@ -643,7 +646,7 @@ PetitSQLiteGrammar >> joinOperator [
 
 { #category : #'statements-elements' }
 PetitSQLiteGrammar >> joinSource [
-
+	"http://www.sqlite.org/syntaxdiagrams.html#join-source"
 	^singleSource ,
 	(joinOperator , singleSource , joinConstraint) star 
 ]
@@ -818,9 +821,31 @@ PetitSQLiteGrammar >> signedNumber [
 PetitSQLiteGrammar >> singleSource [
 	"http://www.sqlite.org/syntaxdiagrams.html#single-source"
 	
-	^(	($( asParser trim , joinSource , $) asParser trim) /
-		($( asParser trim , selectStatement , $) asParser trim ,  as optional , identifier optional ) /
-		(complexIdentifier , (as optional , identifier) optional , ((indexed , by , identifier) / notIndexed ) optional))
+	^
+	singleSourceJoinSourceInRBPart /
+	singleSourceSelectStmtInRBPart /
+	singleSourceIdentifierPart
+]
+
+{ #category : #'statements-elements' }
+PetitSQLiteGrammar >> singleSourceIdentifierPart [
+	"http://www.sqlite.org/syntaxdiagrams.html#single-source"
+	
+	^complexIdentifier , (as optional , identifier) optional , ((indexed , by , identifier) / notIndexed ) optional
+]
+
+{ #category : #'statements-elements' }
+PetitSQLiteGrammar >> singleSourceJoinSourceInRBPart [
+	"http://www.sqlite.org/syntaxdiagrams.html#single-source"
+	
+	^$( asParser trim , joinSource , $) asParser trim
+]
+
+{ #category : #'statements-elements' }
+PetitSQLiteGrammar >> singleSourceSelectStmtInRBPart [
+	"http://www.sqlite.org/syntaxdiagrams.html#single-source"
+	
+	^$( asParser trim , selectStatement , $) asParser trim ,  as optional , identifier optional
 ]
 
 { #category : #statements }

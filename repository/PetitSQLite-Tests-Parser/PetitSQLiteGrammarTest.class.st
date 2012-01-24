@@ -2159,57 +2159,57 @@ PetitSQLiteGrammarTest >> testSignedNumbersSingleDigitWithoutPlusSign [
 ]
 
 { #category : #tests }
-PetitSQLiteGrammarTest >> testSingleSourceLinearTableName [
-
-	self 
-		parse: 'table '
-		rule: #singleSource.
-
-]
-
-{ #category : #tests }
-PetitSQLiteGrammarTest >> testSingleSourceNotIndexed [
-	
-	self 
-		parse: 'table not indexed'
-		rule: #singleSource.
-]
-
-{ #category : #tests }
-PetitSQLiteGrammarTest >> testSingleSourceTableNameAndAnotherName [
-	
-	self 
-		parse: 'db.table anotherTableName'
-		rule: #singleSource.
-
-]
-
-{ #category : #tests }
-PetitSQLiteGrammarTest >> testSingleSourceTableNameAsAnotherName [
-	
-	self 
-		parse: 'db.table as anotherTableName'
-		rule: #singleSource.
-]
-
-{ #category : #tests }
-PetitSQLiteGrammarTest >> testSingleSourceTableNameDotAnotherName [
+PetitSQLiteGrammarTest >> testSingleSourceIdentifierPartComplexTableName [
 	
 	self 
 		parse: 'db.table '
-		rule: #singleSource.
+		rule: #singleSourceIdentifierPart.
 ]
 
 { #category : #tests }
-PetitSQLiteGrammarTest >> testSingleSourceWithJoin [
+PetitSQLiteGrammarTest >> testSingleSourceIdentifierPartLinearTableName [
+
+	self 
+		parse: 'table '
+		rule: #singleSourceIdentifierPart.
+
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testSingleSourceIdentifierPartNotIndexed [
+	
+	self 
+		parse: 'table not indexed'
+		rule: #singleSourceIdentifierPart.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testSingleSourceIdentifierPartTableNameWithAlias [
+	
+	self 
+		parse: 'db.table anotherTableName'
+		rule: #singleSourceIdentifierPart.
+
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testSingleSourceIdentifierPartTableNameWithAsAndAlias [
+	
+	self 
+		parse: 'db.table as anotherTableName'
+		rule: #singleSourceIdentifierPart.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testSingleSourceJoinSourceInRBPartSimpleJoin [
 
 	self 
 		parse: '( tab1.col natural join anotherCol )'
-		rule: #singleSource.
+		rule: #singleSourceJoinSourceInRBPart
 ]
 
 { #category : #tests }
-PetitSQLiteGrammarTest >> testSingleSourceWithJoinAndAlias [
+PetitSQLiteGrammarTest >> testSingleSourceJoinSourceInRBPartWithJoinAndAlias [
 
 	self 
 		parse: '( tab1.col as col natural join anotherCol )'
@@ -2217,27 +2217,27 @@ PetitSQLiteGrammarTest >> testSingleSourceWithJoinAndAlias [
 ]
 
 { #category : #tests }
-PetitSQLiteGrammarTest >> testSingleSourceWithSelect [
+PetitSQLiteGrammarTest >> testSingleSourceSelectStmtInRBPartWithSelect [
 
 	self 
 		parse: '( select * from tableName )'
-		rule: #singleSource.
+		rule: #singleSourceSelectStmtInRBPart.
 ]
 
 { #category : #tests }
-PetitSQLiteGrammarTest >> testSingleSourceWithSelectAndAlias [
+PetitSQLiteGrammarTest >> testSingleSourceSelectStmtInRBPartWithSelectAndAlias [
 
 	self 
 		parse: '( select * from tableName ) tb'
-		rule: #singleSource.
+		rule: #singleSourceSelectStmtInRBPart.
 ]
 
 { #category : #tests }
-PetitSQLiteGrammarTest >> testSingleSourceWithSelectAsAlias [
+PetitSQLiteGrammarTest >> testSingleSourceSelectStmtInRBPartWithSelectAsAlias [
 
 	self 
 		parse: '( select * from tableName ) as tb'
-		rule: #singleSource.
+		rule: #singleSourceSelectStmtInRBPart.
 ]
 
 { #category : #tests }

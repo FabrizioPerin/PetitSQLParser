@@ -258,7 +258,8 @@ PetitSQLiteASTNodesParser >> signedNumber [
 { #category : #initialization }
 PetitSQLiteASTNodesParser >> tableConstraint [
 	^super tableConstraint ==> [:token | 
-		token second name: token first second.
+		token first isNil ifFalse: [
+			token second name: token first second ].
 		token second].
 ]
 

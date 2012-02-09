@@ -134,7 +134,8 @@ Class {
 		'singleSourceSelectStmtInRBPart',
 		'singleSourceIdentifierPart',
 		'defaultConstraint',
-		'notNullConstraint'
+		'notNullConstraint',
+		'unsigned'
 	],
 	#category : #'PetitSQLite-Parser'
 }
@@ -256,6 +257,7 @@ PetitSQLiteGrammar >> columnConstraint [
 	( check , $( asParser trim , expression , $) asParser trim ) /
 	defaultConstraint /
 	( collate , identifier ) /
+	unsigned / "MySQL specific constraint"
 	foreignKeyClause ) star.
 ]
 
@@ -292,12 +294,18 @@ PetitSQLiteGrammar >> columnTypes [
 	'NVARCHAR2' asParser caseInsensitive trim /
 	'FLOAT' asParser caseInsensitive trim /
 	'RAW' asParser caseInsensitive trim /
+	'longtext' asParser caseInsensitive trim / "MySQL specific type"
 	'LONG' asParser caseInsensitive trim /
 	'NUMERIC' asParser caseInsensitive trim / "postgress specfic type"
 	'bytea' asParser caseInsensitive trim / "postgress specfic type"
 	'text' asParser caseInsensitive trim / "postgress specfic type"
 	'name' asParser caseInsensitive trim / "postgress specfic type"
-	'bigint' asParser caseInsensitive trim. "MySQL specific type"
+	'bigint' asParser caseInsensitive trim / "MySQL specific type"
+	'bit' asParser caseInsensitive trim / "MySQL specific type"
+	'varbinary' asParser caseInsensitive trim / "MySQL specific type"
+	'double' asParser caseInsensitive trim / "MySQL specific type"
+	'decimal' asParser caseInsensitive trim / "MySQL specific type"
+	'smallint' asParser caseInsensitive trim. "MySQL specific type"
 ]
 
 { #category : #'statements-elements' }
@@ -956,6 +964,11 @@ PetitSQLiteGrammar >> typeName [
 { #category : #tokens }
 PetitSQLiteGrammar >> unique [
 	^'UNIQUE' asParser caseInsensitive trim
+]
+
+{ #category : #tokens }
+PetitSQLiteGrammar >> unsigned [
+	^'UNSIGNED' asParser caseInsensitive trim
 ]
 
 { #category : #tokens }

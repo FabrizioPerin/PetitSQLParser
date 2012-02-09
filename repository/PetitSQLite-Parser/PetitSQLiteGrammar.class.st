@@ -519,7 +519,7 @@ PetitSQLiteGrammar >> foreignKey [
 PetitSQLiteGrammar >> foreignKeyClause [
 	"http://www.sqlite.org/syntaxdiagrams.html#foreign-key-clause"
 
-	^references , identifier , ($( asParser trim , (indexedColumn separatedBy: $, asParser trim ) , $) asParser trim) optional ,
+	^references , complexIdentifier , ($( asParser trim , (indexedColumn separatedBy: $, asParser trim ) , $) asParser trim) optional ,
 	( ( ( ( foreignKeyClauseOnPart , ( match , identifier ) star ) / ( match , identifier ) ) , foreignKeyClauseNotPart optional )  / foreignKeyClauseNotPart ) optional 
 ]
 

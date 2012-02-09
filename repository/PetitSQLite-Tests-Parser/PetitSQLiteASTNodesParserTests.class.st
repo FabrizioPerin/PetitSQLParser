@@ -200,8 +200,8 @@ PetitSQLiteASTNodesParserTests >> testAlterTableRenameTable [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testColumnConstraintDefaultWithQuotes [
-	super testColumnConstraintDefaultWithQuotes.
+PetitSQLiteASTNodesParserTests >> testColumnConstraintDefaultNumbersWithQuotes [
+	super testColumnConstraintDefaultNumbersWithQuotes.
 	
 	self assert: (result isMemberOf: SQLColumnConstraintNode).
 	self assert: (result name = nil).

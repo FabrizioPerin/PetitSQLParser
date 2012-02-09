@@ -309,15 +309,7 @@ PetitSQLiteGrammarTest >> testColumn [
 ]
 
 { #category : #tests }
-PetitSQLiteGrammarTest >> testColumnConstraintDefaultIsNegativeNumber [
-
-	self 
-		parse: ' default -45 '
-		rule: #columnConstraint.
-]
-
-{ #category : #tests }
-PetitSQLiteGrammarTest >> testColumnConstraintDefaultIsStringWithoutQuotes [
+PetitSQLiteGrammarTest >> testColumnConstraintDefaultLiteralNotNull [
 
 	self 
 		parse: ' DEFAULT test NOT NULL'
@@ -325,8 +317,9 @@ PetitSQLiteGrammarTest >> testColumnConstraintDefaultIsStringWithoutQuotes [
 ]
 
 { #category : #tests }
-PetitSQLiteGrammarTest >> testColumnConstraintDefaultWithQuotes [
-	self 
+PetitSQLiteGrammarTest >> testColumnConstraintDefaultNumbersWithQuotes [
+
+		self 
 		parse: ' default ''0000'' '
 		rule: #columnConstraint.
 ]
@@ -957,6 +950,54 @@ PetitSQLiteGrammarTest >> testDefault [
 	self 
 		parse: 'Default ' "result should be 'Default' "
 		rule: #default.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testDefaultConstraintLiteralWithQuotes [
+		
+	self
+		parse: 'DEFAULT ''a'''
+		rule: #defaultConstraint.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testDefaultConstraintLiteralWithoutQuotes [
+	
+	self
+		parse: 'DEFAULT a'
+		rule: #defaultConstraint.
+
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testDefaultConstraintNegativeNumber [
+
+	self 
+		parse: ' default -45 '
+		rule: #defaultConstraint.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testDefaultConstraintNumberWithQuotes [
+
+	self
+		parse: 'DEFAULT ''0'''
+		rule: #defaultConstraint.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testDefaultConstraintNumberWithoutQuotes [
+
+	self
+		parse: 'DEFAULT 0'
+		rule: #defaultConstraint.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testDefaultConstraintWithQuotes [
+	self 
+		parse: ' default ''0000'' '
+		rule: #defaultConstraint.
 ]
 
 { #category : #tests }
@@ -1717,6 +1758,24 @@ PetitSQLiteGrammarTest >> testNotNull [
 	self 
 		parse: 'not Null ' "result should be 'not Null' "
 		rule: #notNull.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testNotNullConstraintNoClauses [
+
+	self 
+		parse: ' NOT NULL'
+		rule: #notNullConstraint.
+
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testNotNullConstraintWithClauses [
+
+	self 
+		parse: ' NOT NULL ON CONFLICT ROLLBACK'
+		rule: #notNullConstraint.
+
 ]
 
 { #category : #tests }

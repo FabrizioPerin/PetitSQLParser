@@ -132,7 +132,9 @@ Class {
 		'complexIdentifier',
 		'singleSourceJoinSourceInRBPart',
 		'singleSourceSelectStmtInRBPart',
-		'singleSourceIdentifierPart'
+		'singleSourceIdentifierPart',
+		'defaultConstraint',
+		'notNullConstraint'
 	],
 	#category : #'PetitSQLite-Parser'
 }
@@ -249,10 +251,10 @@ PetitSQLiteGrammar >> columnConstraint [
 	
 	^	(constraint , identifier) optional ,
 	( columnConstraintPrimaryKey /
-	( notNull , 'ENABLE' asParser caseInsensitive optional , conflictClause ) /
+	notNullConstraint /
 	( unique , conflictClause ) /
 	( check , $( asParser trim , expression , $) asParser trim ) /
-	( default , ( signedNumber / literalValue / ($( asParser trim , expression , $) asParser trim) ) ) /
+	defaultConstraint /
 	( collate , identifier ) /
 	foreignKeyClause ) star.
 ]
@@ -275,7 +277,8 @@ PetitSQLiteGrammar >> columnDef [
 { #category : #'statements-elements' }
 PetitSQLiteGrammar >> columnTypes [ 
 	^
-	'VARCHAR2' asParser caseInsensitive trim / 
+	'VARCHAR2' asParser caseInsensitive trim /
+	'VARCHAR' asParser caseInsensitive trim / "MySQL specific type"
 	'CLOB' asParser caseInsensitive trim / 
 	'timestamp' asParser caseInsensitive trim /
 	'NUMBER' asParser caseInsensitive trim / 
@@ -293,8 +296,8 @@ PetitSQLiteGrammar >> columnTypes [
 	'NUMERIC' asParser caseInsensitive trim / "postgress specfic type"
 	'bytea' asParser caseInsensitive trim / "postgress specfic type"
 	'text' asParser caseInsensitive trim / "postgress specfic type"
-	'name' asParser caseInsensitive trim. "postgress specfic type"
-	
+	'name' asParser caseInsensitive trim / "postgress specfic type"
+	'bigint' asParser caseInsensitive trim. "MySQL specific type"
 ]
 
 { #category : #'statements-elements' }
@@ -381,6 +384,14 @@ PetitSQLiteGrammar >> database [
 { #category : #tokens }
 PetitSQLiteGrammar >> default [
 	^'DEFAULT' asParser caseInsensitive trim
+]
+
+{ #category : #constraints }
+PetitSQLiteGrammar >> defaultConstraint [
+	"http://www.sqlite.org/syntaxdiagrams.html#column-constraint"
+	"Added ENABLE after NOT NULL to cover a column constraint from some sql dialects"
+	
+	^default , ( signedNumber / literalValue / ($( asParser trim , expression , $) asParser trim) )
 ]
 
 { #category : #tokens }
@@ -701,6 +712,14 @@ PetitSQLiteGrammar >> notIndexed [
 { #category : #tokens }
 PetitSQLiteGrammar >> notNull [
 	^'NOT NULL' asParser caseInsensitive trim
+]
+
+{ #category : #constraints }
+PetitSQLiteGrammar >> notNullConstraint [
+	"http://www.sqlite.org/syntaxdiagrams.html#column-constraint"
+	"Added ENABLE after NOT NULL to cover a column constraint from some sql dialects"
+	
+	^notNull , 'ENABLE' asParser caseInsensitive optional , conflictClause
 ]
 
 { #category : #tokens }

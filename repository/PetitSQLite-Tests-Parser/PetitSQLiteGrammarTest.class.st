@@ -885,7 +885,7 @@ PetitSQLiteGrammarTest >> testCreateTableFooAsSelect [
 PetitSQLiteGrammarTest >> testCreateTableWith9Columns [
 	
 	self 
-		parse: '  CREATE TABLE TP_CO
+		parse: '  CREATE TABLE ciao.TP_CO
 (
 	CO_KEY          VARCHAR2(100) NOT NULL,
 	CO_NAME         VARCHAR2(100),

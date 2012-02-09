@@ -363,8 +363,7 @@ PetitSQLiteGrammar >> createTable [
 		(temp / temporary) optional,  
 	table ,  
 		ifNotExists optional ,
-		(identifier , $. asParser trim) optional , "databaseName . tableName "
-	identifier , 
+	complexIdentifier , 
 	( ($( asParser trim , whitespace optional , tableColumnsDefinition plus , whitespace optional , $) asParser trim ) | 
 	( as , selectStatement ) ) 
 ]

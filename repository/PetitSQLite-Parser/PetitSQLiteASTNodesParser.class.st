@@ -145,13 +145,12 @@ PetitSQLiteASTNodesParser >> createTable [
 	^super createTable ==> [ :token | 
 		| tableNode |
 		tableNode := SQLCreateTableStmtNode new.		
-		
-		
-		tableNode name: (token at: 6).
 
-		tableNode columns: (((token at: 7) third first first) select: [:each | each isMemberOf: SQLColumnDefNode]).
+		tableNode name: (token at: 5).
 
-		tableNode constraints: (token at: 7) third first second.
+		tableNode columns: (((token at: 6) third first first) select: [:each | each isMemberOf: SQLColumnDefNode]).
+
+		tableNode constraints: (token at: 6) third first second.
 		
 		tableNode]
 ]
@@ -284,10 +283,13 @@ PetitSQLiteASTNodesParser >> tableConstraintForeignKeyPart [
 		newConstr := SQLTableConstraintNode new.
 
 		newConstr isFKConstraint: true.
-				
+
 		token third do: [:el | el isString ifTrue: [newConstr addFKColumnName: el]].
 		
 		newConstr referencedTableName: (token at: 5) second.	
+			
+		((token at: 5) third second) do: [:el | 
+			el isCollection ifTrue: [newConstr addPKColumnName: el first]].
 
 		newConstr]
 ]

@@ -289,8 +289,9 @@ PetitSQLiteASTNodesParser >> tableConstraintCheckPart [
 
 { #category : #'statements-elements' }
 PetitSQLiteASTNodesParser >> tableConstraintForeignKeyPart [ 
+
 	^super tableConstraintForeignKeyPart ==> [:token | 
-		| newConstr |
+		| newConstr pkColumnsList |
 
 		newConstr := SQLTableConstraintNode new.
 
@@ -299,9 +300,12 @@ PetitSQLiteASTNodesParser >> tableConstraintForeignKeyPart [
 		token second do: [:el | el isString ifTrue: [newConstr addFKColumnName: el]].
 		
 		newConstr referencedTableName: token third second.	
-"		self halt."
-		(token third at: 4) do: [:el | 
-			el isCollection ifTrue: [newConstr addPKColumnName: el first]].
+
+		pkColumnsList := token third third.
+
+		pkColumnsList isCollection 
+			ifTrue: [ pkColumnsList second do: [:el |
+				el isCollection ifTrue: [newConstr addPKColumnName: el first]]].
 
 		newConstr]
 ]

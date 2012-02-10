@@ -279,6 +279,20 @@ PetitSQLiteASTNodesParserTests >> testCreateTableWith9Columns [
 ]
 
 { #category : #tests }
+PetitSQLiteASTNodesParserTests >> testCreateTableWithConstraints [
+	
+	super testCreateTableWithConstraints.
+	
+	self assert: (result isMemberOf: SQLCreateTableStmtNode).
+	self assert: result name equals: 'mydb.Delegation'.
+	
+	self assert: result constraints size equals: 2.
+	self assert: result constraints first second isPKConstraint.
+	self assert: result constraints second second isFKConstraint.
+
+]
+
+{ #category : #tests }
 PetitSQLiteASTNodesParserTests >> testDeleteStatementSimple [
 	super testDeleteStatementSimple.
 	

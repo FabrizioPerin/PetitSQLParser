@@ -256,6 +256,7 @@ PetitSQLiteGrammar >> columnConstraint [
 	^	(constraint , identifier) optional ,
 	( columnConstraintPrimaryKey /
 	notNullConstraint /
+	null / "added MySQL specific Constraint"
 	( unique , conflictClause ) /
 	( check , expressionInRoundParentheses ) /
 	defaultConstraint /

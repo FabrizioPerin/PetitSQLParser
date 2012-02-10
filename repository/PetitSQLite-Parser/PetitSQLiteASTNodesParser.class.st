@@ -314,7 +314,7 @@ PetitSQLiteASTNodesParser >> tableConstraintForeignKeyPart [
 PetitSQLiteASTNodesParser >> tableConstraintPrimaryKeyPart [
 	^super tableConstraintPrimaryKeyPart ==> [:token | 
 		| newConstr |
-		
+
 		newConstr := SQLTableConstraintNode new.
 
 		(token first matches: 'PRIMARY KEY') 

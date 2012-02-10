@@ -2511,6 +2511,18 @@ PetitSQLiteGrammarTest >> testTableConstraintForeignKeyPartOneFKReferencesTableA
 ]
 
 { #category : #tests }
+PetitSQLiteGrammarTest >> testTableConstraintForeignKeyWholeConstraint [
+
+	self 
+		parse: 'CONSTRAINT region
+    FOREIGN KEY (region )
+    REFERENCES mydb.Region (idRegion )
+    ON DELETE NO ACTION
+    ON UPDATE CASCADE'
+		rule: #tableConstraint.
+]
+
+{ #category : #tests }
 PetitSQLiteGrammarTest >> testTableConstraintPK [
 
 	self 

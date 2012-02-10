@@ -174,10 +174,22 @@ PetitSQLiteASTNodesParser >> deleteStatement [
 			deleteStmt ]
 ]
 
+{ #category : #elementsinparentheses }
+PetitSQLiteASTNodesParser >> expressionInRoundParentheses [
+	
+	^super expressionInRoundParentheses ==> #second
+]
+
 { #category : #'statements-elements' }
 PetitSQLiteASTNodesParser >> floatingPointLiteral [ 
 	^super floatingPointLiteral ==> [ :token | (token first , token second asString , token third) value asNumber. ].
 
+]
+
+{ #category : #elementsinparentheses }
+PetitSQLiteASTNodesParser >> identifiersInRoundParentheses [
+	
+	^super identifiersInRoundParentheses ==> #second
 ]
 
 { #category : #initialization }
@@ -189,7 +201,7 @@ PetitSQLiteASTNodesParser >> insertStatement [
 		insertStmt table: (token at: 4). 
 		(token at: 5) isEmpty ifFalse:[
 			(token at: 5) first isNil ifFalse: [
-				insertStmt affectedColumns: ((token at: 5) first second reject: [:each | each = $,])].
+				insertStmt affectedColumns: ((token at: 5) first reject: [:each | each = $,])].
 		 	(token at: 5) second isNil ifFalse: [
 				(token at: 5) second isArray ifTrue: [
 					insertStmt values: ((token at: 5) second third reject: [:each | each = $,])]] ].
@@ -270,7 +282,7 @@ PetitSQLiteASTNodesParser >> tableConstraintCheckPart [
 		newConstr := SQLTableConstraintNode new.
 		
 		newConstr isCheck: true.		
-		newConstr expressionString: token third.
+		newConstr expressionString: token second withoutTrailingBlanks.
 
 		newConstr]
 ]
@@ -284,11 +296,11 @@ PetitSQLiteASTNodesParser >> tableConstraintForeignKeyPart [
 
 		newConstr isFKConstraint: true.
 
-		token third do: [:el | el isString ifTrue: [newConstr addFKColumnName: el]].
+		token second do: [:el | el isString ifTrue: [newConstr addFKColumnName: el]].
 		
-		newConstr referencedTableName: (token at: 5) second.	
-			
-		((token at: 5) third second) do: [:el | 
+		newConstr referencedTableName: token third second.	
+"		self halt."
+		(token third at: 4) do: [:el | 
 			el isCollection ifTrue: [newConstr addPKColumnName: el first]].
 
 		newConstr]
@@ -307,7 +319,7 @@ PetitSQLiteASTNodesParser >> tableConstraintPrimaryKeyPart [
 				newConstr isFKConstraint: false.
 				newConstr isUnique: false.
 				
-				token third do: [:el | el isArray 
+				token second second do: [:el | el isArray 
 								ifTrue: [el first isString 
 											ifTrue: [newConstr addPKColumnName: el first]]]].
 		
@@ -317,7 +329,7 @@ PetitSQLiteASTNodesParser >> tableConstraintPrimaryKeyPart [
 				newConstr isFKConstraint: false.
 				newConstr isUnique: true.
 				
-				token third do: [:el | el isArray 
+				token second second do: [:el | el isArray 
 								ifTrue: [el first isString 
 											ifTrue: [newConstr addUniqueColumnName: el first]]]].
 				

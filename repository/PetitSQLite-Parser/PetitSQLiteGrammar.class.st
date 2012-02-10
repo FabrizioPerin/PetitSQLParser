@@ -135,7 +135,10 @@ Class {
 		'singleSourceIdentifierPart',
 		'defaultConstraint',
 		'notNullConstraint',
-		'unsigned'
+		'unsigned',
+		'indexedColumnsInRoundParentheses',
+		'expressionInRoundParentheses',
+		'identifiersInRoundParentheses'
 	],
 	#category : #'PetitSQLite-Parser'
 }
@@ -254,7 +257,7 @@ PetitSQLiteGrammar >> columnConstraint [
 	( columnConstraintPrimaryKey /
 	notNullConstraint /
 	( unique , conflictClause ) /
-	( check , $( asParser trim , expression , $) asParser trim ) /
+	( check , expressionInRoundParentheses ) /
 	defaultConstraint /
 	( collate , identifier ) /
 	unsigned / "MySQL specific constraint"
@@ -398,7 +401,7 @@ PetitSQLiteGrammar >> defaultConstraint [
 	"http://www.sqlite.org/syntaxdiagrams.html#column-constraint"
 	"Added ENABLE after NOT NULL to cover a column constraint from some sql dialects"
 	
-	^default , ( signedNumber / literalValue / ($( asParser trim , expression , $) asParser trim) )
+	^default , ( signedNumber / literalValue / expressionInRoundParentheses )
 ]
 
 { #category : #tokens }
@@ -490,6 +493,12 @@ PetitSQLiteGrammar >> expression [
 		yourself
 ]
 
+{ #category : #elementsInParentheses }
+PetitSQLiteGrammar >> expressionInRoundParentheses [
+	
+	^$( asParser trim , expression , $) asParser trim
+]
+
 { #category : #'statements-elements' }
 PetitSQLiteGrammar >> expressionTerm [
 	^( 
@@ -518,8 +527,8 @@ PetitSQLiteGrammar >> foreignKey [
 PetitSQLiteGrammar >> foreignKeyClause [
 	"http://www.sqlite.org/syntaxdiagrams.html#foreign-key-clause"
 
-	^references , complexIdentifier , ($( asParser trim , (indexedColumn separatedBy: $, asParser trim ) , $) asParser trim) optional ,
-	( ( ( ( foreignKeyClauseOnPart , ( match , identifier ) star ) / ( match , identifier ) ) , foreignKeyClauseNotPart optional )  / foreignKeyClauseNotPart ) optional 
+	^references , complexIdentifier , indexedColumnsInRoundParentheses optional ,
+	(foreignKeyClauseOnPart / ( match , identifier )) star , foreignKeyClauseNotPart optional.
 ]
 
 { #category : #'clause-elements' }
@@ -554,6 +563,12 @@ PetitSQLiteGrammar >> identifier [
 	^ (keyword not , ((#letter asParser / $_ asParser / #digit asParser / $$ asParser / '://' asParser / $< asParser / $% asParser / $# asParser / $> asParser / $@ asParser ) plus flatten trim)) ==>  #second
 ]
 
+{ #category : #elementsInParentheses }
+PetitSQLiteGrammar >> identifiersInRoundParentheses [
+	
+	^$( asParser trim , ( identifier separatedBy: $, asParser ) , $) asParser trim
+]
+
 { #category : #tokens }
 PetitSQLiteGrammar >> ifNotExists [
 	^'IF NOT EXISTS' asParser caseInsensitive trim
@@ -582,6 +597,12 @@ PetitSQLiteGrammar >> indexed [
 { #category : #'statements-elements' }
 PetitSQLiteGrammar >> indexedColumn [
 	^ identifier , ( collate , identifier ) optional , ( asc / desc ) optional.
+]
+
+{ #category : #elementsInParentheses }
+PetitSQLiteGrammar >> indexedColumnsInRoundParentheses [
+
+	^$( asParser trim , (indexedColumn separatedBy: $, asParser trim ) , $) asParser trim
 ]
 
 { #category : #statements }
@@ -628,7 +649,7 @@ PetitSQLiteGrammar >> insertStatement [
 	(identifier , $. asParser trim) optional , identifier , "databaseName . tableName "
 	(
 	(default , values) /
-		(($( asParser trim , (identifier separatedBy: $, asParser trim) , $) asParser trim) optional ,
+		(identifiersInRoundParentheses optional ,
 	((values , $( asParser trim , (expression separatedBy: $, asParser trim) , $) asParser trim) /
 	selectStatement))
 	)
@@ -648,7 +669,7 @@ PetitSQLiteGrammar >> into [
 PetitSQLiteGrammar >> joinConstraint [ 
 	"http://www.sqlite.org/syntaxdiagrams.html#join-constraint"
 	^(	(on , expression) /
-		('USING' asParser caseInsensitive trim , $( asParser trim , (identifier separatedBy: $, asParser trim) , $) asParser trim)) optional
+		('USING' asParser caseInsensitive trim , identifiersInRoundParentheses)) optional
 ]
 
 { #category : #'statements-elements' }
@@ -924,21 +945,21 @@ PetitSQLiteGrammar >> tableConstraint [
 PetitSQLiteGrammar >> tableConstraintCheckPart [
 	"http://www.sqlite.org/syntaxdiagrams.html#table-constraint"
 	
-	^check , $( asParser trim , expression ,  $) asParser trim
+	^check , expressionInRoundParentheses
 ]
 
 { #category : #'constraints-elements' }
 PetitSQLiteGrammar >> tableConstraintForeignKeyPart [
 	"http://www.sqlite.org/syntaxdiagrams.html#table-constraint"
 	
-	^ foreignKey , $( asParser trim , ( identifier separatedBy: $, asParser ) , $) asParser trim , foreignKeyClause
+	^ foreignKey , identifiersInRoundParentheses , foreignKeyClause
 ]
 
 { #category : #'constraints-elements' }
 PetitSQLiteGrammar >> tableConstraintPrimaryKeyPart [
 	"http://www.sqlite.org/syntaxdiagrams.html#table-constraint"
 	
-	^( primaryKey / unique ) , $( asParser trim , ( indexedColumn separatedBy: $, asParser ) , $) asParser trim , conflictClause
+	^( primaryKey / unique ) , indexedColumnsInRoundParentheses , conflictClause
 ]
 
 { #category : #tokens }

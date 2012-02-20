@@ -282,7 +282,7 @@ PetitSQLiteASTNodesParser >> tableConstraintCheckPart [
 		newConstr := SQLTableConstraintNode new.
 		
 		newConstr isCheck: true.		
-		newConstr expressionString: token second withoutTrailingBlanks.
+		newConstr expressionString: token second trimRight.
 
 		newConstr]
 ]

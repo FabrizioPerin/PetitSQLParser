@@ -138,7 +138,8 @@ Class {
 		'unsigned',
 		'indexedColumnsInRoundParentheses',
 		'expressionInRoundParentheses',
-		'identifiersInRoundParentheses'
+		'identifiersInRoundParentheses',
+		'countFunction'
 	],
 	#category : #'PetitSQLite-Parser'
 }
@@ -490,6 +491,7 @@ PetitSQLiteGrammar >> expression [
 		group: [ :g | "Add here the extra functions "
 			g prefix: 'NOT EXISTS' asParser caseInsensitive trim do: [ :op :b | { op. b } ].
 			g prefix: 'EXISTS' asParser caseInsensitive trim do: [ :op :b | { op. b } ].
+			g prefix: 'COUNT' asParser caseInsensitive trim do: [ :op :b | { op. b } ].
 			g prefix: 'TRIM' asParser caseInsensitive trim do: [ :op :b | { op. b } ]. ];
 		yourself
 ]
@@ -503,6 +505,7 @@ PetitSQLiteGrammar >> expressionInRoundParentheses [
 { #category : #'statements-elements' }
 PetitSQLiteGrammar >> expressionTerm [
 	^( 
+	($( asParser trim ,  selectStatement , $) asParser trim) /
 	($( asParser trim ,  (expressionTerm / $) asParser negate) star , $) asParser trim) /
 	(literalValue , ($( asParser trim ,  (expressionTerm / $) asParser negate) star , $) asParser trim)) / "In the case we have a function invocation"
 	(((literalValue , $. asParser) min: 0 max: 2), literalValue)) flatten
@@ -618,7 +621,7 @@ PetitSQLiteGrammar >> initializeKeywords [
 
 	| vals |
 	keywords := Dictionary new.
-	vals := #('CROSS' 'INNER' 'JOIN' 'LEFT' 'NATURAL' 'OUTER' 'WHERE' 'NOT' 'BLOB' 'ORDER BY' 'OR' 'FROM').
+	vals := #('CROSS' 'INNER' 'JOIN' 'LEFT' 'NATURAL' 'OUTER' 'WHERE' 'NOT' 'BLOB' 'ORDER BY' 'OR' 'FROM' 'COUNT').
 	
 	vals do: [:eachKeyword |
 		keywords at: eachKeyword 
@@ -714,8 +717,9 @@ PetitSQLiteGrammar >> literalValue [
 	currentDate / 
 	currentTime / 
 	$? asParser trim / 
-	($' asParser trim optional , (floatingPointLiteral / integerLiteral / identifier / blobLiteral) , $' asParser trim optional) 
-	/ identifier
+	($' asParser trim , $' asParser trim ) /
+	($' asParser trim optional , (floatingPointLiteral / integerLiteral / identifier / blobLiteral) , $' asParser trim optional ) 
+
 ]
 
 { #category : #tokens }

@@ -309,7 +309,24 @@ PetitSQLiteGrammarTest >> testColumn [
 ]
 
 { #category : #tests }
-PetitSQLiteGrammarTest >> testColumnConstraintDefaultLiteralNotNull [
+PetitSQLiteGrammarTest >> testColumnConstraintCheck [
+
+	self 
+		parse: 'CHECK(IsFilledRectangle in (''Y'',''N''))' 
+		rule: #columnConstraint.
+
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testColumnConstraintDefaultEmptyString [
+
+	self 
+		parse: ' DEFAULT '''''
+		rule: #defaultConstraint.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testColumnConstraintDefaultLiteral [
 
 	self 
 		parse: ' DEFAULT test'
@@ -403,6 +420,13 @@ PetitSQLiteGrammarTest >> testColumnConstraintWithdefaultWithNumber [
 		parse: 'DEFAULT 0' 
 		rule: #columnConstraint.
 
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testColumnDefComplex [
+	self 
+		parse: '  IsFilledRectangle CHAR(1) DEFAULT ''N'' NOT NULL CHECK(IsFilledRectangle in (''Y'',''N''))'
+		rule: #columnDef.
 ]
 
 { #category : #tests }
@@ -1100,11 +1124,19 @@ PetitSQLiteGrammarTest >> testExplain [
 
 { #category : #tests }
 PetitSQLiteGrammarTest >> testExpression [
-	self flag: #TODO.
+	"self flag: #TODO."
 	self 
 		parse: 'IsActive'
 		rule: #expression.
 	
+	self 
+		parse: 'IsActive in (''Y'',''N'')'
+		rule: #expression.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testExpressionIN [
+
 	self 
 		parse: 'IsActive in (''Y'',''N'')'
 		rule: #expression.
@@ -1694,34 +1726,76 @@ PetitSQLiteGrammarTest >> testJoinSourceWithJoinOperation [
 ]
 
 { #category : #tests }
-PetitSQLiteGrammarTest >> testLiteralValue [
-	self 
-		parse: ' 2345'
-	 	rule: #literalValue.
-	self 
-		parse: ' 23 . 45 '
-	 	rule: #literalValue.
-	self 
-		parse: 'something '
-	 	rule: #literalValue.
-	self 
-		parse: ' BLOb'
-	 	rule: #literalValue.
-	self 
-		parse: ' null '
-	 	rule: #literalValue.
-	self 
-		parse: ' CUrrent_time '
-	 	rule: #literalValue.
-	self 
-		parse: ' CUrrent_timestamp '
-	 	rule: #literalValue.
-	self 
-		parse: 'CUrrent_DATE '
-	 	rule: #literalValue.
+PetitSQLiteGrammarTest >> testLiteralValueAnotherString [
+
 	self 
 		parse: '''N'''
 	 	rule: #literalValue.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testLiteralValueBlob [
+	
+	self 
+		parse: ' BLOb'
+	 	rule: #literalValue.
+
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testLiteralValueCurrentDate [
+	
+	self 
+		parse: 'CUrrent_DATE '
+	 	rule: #literalValue.
+
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testLiteralValueCurrentTime [
+
+	self 
+		parse: ' CUrrent_time '
+	 	rule: #literalValue.
+
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testLiteralValueCurrentTimestamp [
+	self 
+		parse: ' CUrrent_timestamp '
+	 	rule: #literalValue.
+
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testLiteralValueFloat [
+	self 
+		parse: ' 23 . 45 '
+	 	rule: #literalValue.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testLiteralValueNull [
+	self 
+		parse: ' null '
+	 	rule: #literalValue.
+
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testLiteralValueNumbers [
+	self 
+		parse: ' 2345'
+	 	rule: #literalValue.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testLiteralValueString [
+	self 
+		parse: 'something '
+	 	rule: #literalValue.
+
 ]
 
 { #category : #tests }
@@ -2099,10 +2173,26 @@ PetitSQLiteGrammarTest >> testSelectStatementComplex [
 ]
 
 { #category : #tests }
-PetitSQLiteGrammarTest >> testSelectStatementComplexWithCount [
+PetitSQLiteGrammarTest >> testSelectStatementComplexWithCountColumn [
+	
+	self 
+		parse: ' SELECT COUNT(bla) FROM USER_TAB_COLUMNS C WHERE C.TABLE_NAME = ''A_GLOB'' AND C.COLUMN_NAME = ''ESC_ID'''
+		rule: #selectStatement.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testSelectStatementComplexWithCountStar [
 	
 	self 
 		parse: ' SELECT COUNT(*) FROM USER_TAB_COLUMNS C WHERE C.TABLE_NAME = ''A_GLOB'' AND C.COLUMN_NAME = ''ESC_ID'''
+		rule: #selectStatement.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testSelectStatementComplexWithCountdistinct [
+	
+	self 
+		parse: ' SELECT COUNT(distinct bla) FROM USER_TAB_COLUMNS C WHERE C.TABLE_NAME = ''A_GLOB'' AND C.COLUMN_NAME = ''ESC_ID'''
 		rule: #selectStatement.
 ]
 

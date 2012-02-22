@@ -485,9 +485,9 @@ PetitSQLiteASTNodesParserTests >> testSelectStatementComplex [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testSelectStatementComplexWithCount [
+PetitSQLiteASTNodesParserTests >> testSelectStatementComplexWithCountStar [
 	
-	super testSelectStatementComplexWithCount.
+	super testSelectStatementComplexWithCountStar.
 		
 	self assert: (result isMemberOf: SQLSelectStmtNode).
 	self assert: (result from isMemberOf: OrderedCollection).

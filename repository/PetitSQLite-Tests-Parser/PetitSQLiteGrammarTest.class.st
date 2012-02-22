@@ -312,7 +312,7 @@ PetitSQLiteGrammarTest >> testColumn [
 PetitSQLiteGrammarTest >> testColumnConstraintDefaultLiteralNotNull [
 
 	self 
-		parse: ' DEFAULT test NOT NULL'
+		parse: ' DEFAULT test'
 		rule: #columnConstraint.
 ]
 
@@ -400,7 +400,7 @@ PetitSQLiteGrammarTest >> testColumnConstraintWithDefaultWithParenthesis [
 PetitSQLiteGrammarTest >> testColumnConstraintWithdefaultWithNumber [
 
 	self 
-		parse: 'DEFAULT 0 NOT NULL' 
+		parse: 'DEFAULT 0' 
 		rule: #columnConstraint.
 
 ]

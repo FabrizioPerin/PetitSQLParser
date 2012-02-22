@@ -218,14 +218,8 @@ PetitSQLiteASTNodesParserTests >> testColumnDefJustColName [
 	self assert: (result isMemberOf: SQLColumnDefNode).  	
 	self assert: result name equals: 'colName'.
 	self assert: result type equals: nil.
-	self assert: (result constraints isMemberOf: SQLColumnConstraintNode).
-	self assert: result constraints name equals: nil.
-	self assert: result constraints defaultValue equals: nil.
-	self assert: result constraints isUnique equals: nil.
-	self assert: result constraints isPK equals: nil.
-	self assert: result constraints canBeNull equals: nil.
-	
-	
+	self assert: (result constraints isMemberOf: Array).
+	self assert: result constraints size equals: 0.
 ]
 
 { #category : #tests }
@@ -235,12 +229,14 @@ PetitSQLiteASTNodesParserTests >> testColumnDefWithEnable [
 	self assert: (result isMemberOf: SQLColumnDefNode).  	
 	self assert: (result name = 'ABLAUFID').
 	self assert: (result type = 'NUMBER').
-	self assert: (result constraints isMemberOf: SQLColumnConstraintNode).
-	self assert: (result constraints name = nil).
-	self assert: (result constraints defaultValue = nil).
-	self assert: (result constraints isUnique = nil).
-	self assert: (result constraints isPK = nil).
-	self assert: (result constraints canBeNull = false).
+	self assert: (result constraints isMemberOf: Array).
+	self assert: result constraints size equals: 1.
+	self assert: (result constraints first isMemberOf: SQLColumnConstraintNode).
+	self assert: (result constraints first name = nil).
+	self assert: (result constraints first defaultValue = nil).
+	self assert: (result constraints first isUnique = nil).
+	self assert: (result constraints first isPK = nil).
+	self assert: (result constraints first canBeNull = false).
 ]
 
 { #category : #tests }
@@ -250,14 +246,19 @@ PetitSQLiteASTNodesParserTests >> testColumnDefWithLongDefault [
 	self assert: (result isMemberOf: SQLColumnDefNode).  	
 	self assert: (result name = 'Year').
 	self assert: (result type = 'VARCHAR2').
-	self assert: (result constraints isMemberOf: SQLColumnConstraintNode).
-	self assert: (result constraints name = nil).
-	self assert: (result constraints defaultValue = '0000').
-	self assert: (result constraints isUnique = nil).
-	self assert: (result constraints isPK = nil).
-	self assert: (result constraints canBeNull = false).
+	self assert: (result constraints isMemberOf: Array).
 	
+	self assert: (result constraints first isMemberOf: SQLColumnConstraintNode).
+	self assert: (result constraints first defaultValue = '0000').
+	self assert: (result constraints first isUnique = nil).
+	self assert: (result constraints first isPK = nil).
+	self assert: (result constraints first canBeNull = nil).
 	
+	self assert: (result constraints second isMemberOf: SQLColumnConstraintNode).
+	self assert: (result constraints second defaultValue = nil).
+	self assert: (result constraints second isUnique = nil).
+	self assert: (result constraints second isPK = nil).
+	self assert: (result constraints second canBeNull = false).
 	
 ]
 

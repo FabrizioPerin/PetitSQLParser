@@ -104,15 +104,15 @@ PetitSQLiteASTNodesParser >> columnConstraint [
 		const := SQLColumnConstraintNode new.
 		
 		token second do: [:colConstraint | 
-								colConstraint do: [:each |
-									(each asString match: 'default') ifTrue: [
-										(colConstraint second size > 1)
-											ifTrue: [const defaultValue:  colConstraint second second] 
-											ifFalse: [const defaultValue:  colConstraint second first]].
-									(each asString match: 'primary key') ifTrue: [const isPK: true].
-									(each asString match: 'not null') ifTrue: [const canBeNull: false.].
-									(each asString match: 'unique') ifTrue: [const isUnique: true]]].
+								(colConstraint asString match: 'default') ifTrue: [
+									(token second second size > 1)
+										ifTrue: [const defaultValue:  token second second second] 
+										ifFalse: [const defaultValue:  token second second first]].
+								(colConstraint asString match: 'primary key') ifTrue: [const isPK: true].
+								(colConstraint asString match: 'not null') ifTrue: [const canBeNull: false.].
+								(colConstraint asString match: 'unique') ifTrue: [const isUnique: true]].
 		const]
+
 ]
 
 { #category : #statements }

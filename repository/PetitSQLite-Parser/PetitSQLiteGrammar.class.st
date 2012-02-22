@@ -262,7 +262,7 @@ PetitSQLiteGrammar >> columnConstraint [
 	defaultConstraint /
 	( collate , identifier ) /
 	unsigned / "MySQL specific constraint"
-	foreignKeyClause ) star.
+	foreignKeyClause ).
 ]
 
 { #category : #'constraints-elements' }

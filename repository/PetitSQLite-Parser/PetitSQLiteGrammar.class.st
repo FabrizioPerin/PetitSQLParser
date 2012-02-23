@@ -138,8 +138,7 @@ Class {
 		'unsigned',
 		'indexedColumnsInRoundParentheses',
 		'expressionInRoundParentheses',
-		'identifiersInRoundParentheses',
-		'countFunction'
+		'identifiersInRoundParentheses'
 	],
 	#category : #'PetitSQLite-Parser'
 }

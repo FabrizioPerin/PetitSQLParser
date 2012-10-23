@@ -138,7 +138,9 @@ Class {
 		'unsigned',
 		'indexedColumnsInRoundParentheses',
 		'expressionInRoundParentheses',
-		'identifiersInRoundParentheses'
+		'identifiersInRoundParentheses',
+		'char',
+		'byte'
 	],
 	#category : #'PetitSQLite-Parser'
 }
@@ -229,8 +231,18 @@ PetitSQLiteGrammar >> by [
 ]
 
 { #category : #tokens }
+PetitSQLiteGrammar >> byte [
+	^'BYTE' asParser caseInsensitive trim
+]
+
+{ #category : #tokens }
 PetitSQLiteGrammar >> cascade [
 	^'CASCADE' asParser caseInsensitive trim
+]
+
+{ #category : #tokens }
+PetitSQLiteGrammar >> char [
+	^'CHAR' asParser caseInsensitive trim
 ]
 
 { #category : #tokens }
@@ -981,7 +993,7 @@ PetitSQLiteGrammar >> typeName [
 	"http://www.sqlite.org/syntaxdiagrams.html#type-name"
 	^columnTypes , (	($( asParser trim , signedNumber , $, asParser trim , signedNumber , $) asParser trim) /
 						($( asParser trim , signedNumber , $) asParser trim) / 
-						($( asParser trim , signedNumber , 'CHAR' asParser caseInsensitive trim , $) asParser trim) / 
+						($( asParser trim , signedNumber , ( char / byte ) , $) asParser trim) / 
 						($( asParser trim , $* asParser trim , $, asParser trim , signedNumber , $) asParser trim)) optional
 ]
 

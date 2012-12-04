@@ -1,16 +1,16 @@
 Class {
-	#name : #PetitSQLiteASTNodesParserTests,
+	#name : #PetitSQLiteASTNodesParserTest,
 	#superclass : #PetitSQLiteGrammarTest,
 	#category : #'PetitSQLite-Tests-Parser'
 }
 
 { #category : #accessing }
-PetitSQLiteASTNodesParserTests >> parserClass [
+PetitSQLiteASTNodesParserTest >> parserClass [
 	^PetitSQLiteASTNodesParser
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testAlterTableAddConstraintMultipleFKs [
+PetitSQLiteASTNodesParserTest >> testAlterTableAddConstraintMultipleFKs [
 
 	super testAlterTableAddConstraintMultipleFKs.
 	
@@ -30,7 +30,7 @@ PetitSQLiteASTNodesParserTests >> testAlterTableAddConstraintMultipleFKs [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testAlterTableAddConstraintMultiplePKs [
+PetitSQLiteASTNodesParserTest >> testAlterTableAddConstraintMultiplePKs [
 
 	super testAlterTableAddConstraintMultiplePKs.
 
@@ -51,7 +51,7 @@ PetitSQLiteASTNodesParserTests >> testAlterTableAddConstraintMultiplePKs [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testAlterTableAddConstraintOnePK [
+PetitSQLiteASTNodesParserTest >> testAlterTableAddConstraintOnePK [
 
 	super testAlterTableAddConstraintOnePK.
 	
@@ -70,7 +70,7 @@ PetitSQLiteASTNodesParserTests >> testAlterTableAddConstraintOnePK [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testAlterTableAddConstraintUnique [ 
+PetitSQLiteASTNodesParserTest >> testAlterTableAddConstraintUnique [ 
 
 	super testAlterTableAddConstraintUnique.
 	
@@ -91,7 +91,7 @@ PetitSQLiteASTNodesParserTests >> testAlterTableAddConstraintUnique [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testAlterTableConstraintFKOracleNoName [
+PetitSQLiteASTNodesParserTest >> testAlterTableConstraintFKOracleNoName [
 
 	super testAlterTableConstraintFKOracleNoName.
 	
@@ -107,7 +107,7 @@ PetitSQLiteASTNodesParserTests >> testAlterTableConstraintFKOracleNoName [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testAlterTableConstraintFKOracleSeveralColumns [
+PetitSQLiteASTNodesParserTest >> testAlterTableConstraintFKOracleSeveralColumns [
 
 	super testAlterTableConstraintFKOracleSeveralColumns.
 
@@ -123,7 +123,7 @@ PetitSQLiteASTNodesParserTests >> testAlterTableConstraintFKOracleSeveralColumns
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testAlterTableConstraintPKOracleNoName [
+PetitSQLiteASTNodesParserTest >> testAlterTableConstraintPKOracleNoName [
 
 	super testAlterTableConstraintPKOracleNoName.
 	
@@ -141,7 +141,7 @@ PetitSQLiteASTNodesParserTests >> testAlterTableConstraintPKOracleNoName [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testAlterTableConstraintPKOracleOneColumn [
+PetitSQLiteASTNodesParserTest >> testAlterTableConstraintPKOracleOneColumn [
 
 	super testAlterTableConstraintPKOracleOneColumn.		
 
@@ -156,7 +156,7 @@ PetitSQLiteASTNodesParserTests >> testAlterTableConstraintPKOracleOneColumn [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testAlterTableConstraintPKOracleSeveralColumns [
+PetitSQLiteASTNodesParserTest >> testAlterTableConstraintPKOracleSeveralColumns [
 
 	super testAlterTableConstraintPKOracleSeveralColumns.
 	
@@ -174,7 +174,7 @@ PetitSQLiteASTNodesParserTests >> testAlterTableConstraintPKOracleSeveralColumns
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testAlterTableConstraintUnique [
+PetitSQLiteASTNodesParserTest >> testAlterTableConstraintUnique [
 
 	super testAlterTableConstraintUnique.
 	
@@ -189,7 +189,7 @@ PetitSQLiteASTNodesParserTests >> testAlterTableConstraintUnique [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testAlterTableRenameTable [
+PetitSQLiteASTNodesParserTest >> testAlterTableRenameTable [
 	
 	super testAlterTableRenameTable.
 	
@@ -200,7 +200,7 @@ PetitSQLiteASTNodesParserTests >> testAlterTableRenameTable [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testColumnConstraintDefaultNumbersWithQuotes [
+PetitSQLiteASTNodesParserTest >> testColumnConstraintDefaultNumbersWithQuotes [
 	super testColumnConstraintDefaultNumbersWithQuotes.
 	
 	self assert: (result isMemberOf: SQLColumnConstraintNode).
@@ -212,7 +212,7 @@ PetitSQLiteASTNodesParserTests >> testColumnConstraintDefaultNumbersWithQuotes [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testColumnDefJustColName [
+PetitSQLiteASTNodesParserTest >> testColumnDefJustColName [
 	super testColumnDefJustColName.
 	
 	self assert: (result isMemberOf: SQLColumnDefNode).  	
@@ -223,7 +223,7 @@ PetitSQLiteASTNodesParserTests >> testColumnDefJustColName [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testColumnDefWithEnable [
+PetitSQLiteASTNodesParserTest >> testColumnDefWithEnable [
 	super testColumnDefWithEnable.
 	
 	self assert: (result isMemberOf: SQLColumnDefNode).  	
@@ -240,7 +240,7 @@ PetitSQLiteASTNodesParserTests >> testColumnDefWithEnable [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testColumnDefWithLongDefault [
+PetitSQLiteASTNodesParserTest >> testColumnDefWithLongDefault [
 	super testColumnDefWithLongDefault.
 	
 	self assert: (result isMemberOf: SQLColumnDefNode).  	
@@ -263,7 +263,7 @@ PetitSQLiteASTNodesParserTests >> testColumnDefWithLongDefault [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testCreateTableBigWithPrimaryKeyConstr [
+PetitSQLiteASTNodesParserTest >> testCreateTableBigWithPrimaryKeyConstr [
 	super testCreateTableBigWithPrimaryKeyConstr.
 	
 	self assert: (result isMemberOf: SQLCreateTableStmtNode).
@@ -275,12 +275,12 @@ PetitSQLiteASTNodesParserTests >> testCreateTableBigWithPrimaryKeyConstr [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testCreateTableWith9Columns [
+PetitSQLiteASTNodesParserTest >> testCreateTableWith9Columns [
 	super testCreateTableWith9Columns.
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testCreateTableWithConstraints [
+PetitSQLiteASTNodesParserTest >> testCreateTableWithConstraints [
 	
 	super testCreateTableWithConstraints.
 	
@@ -294,7 +294,7 @@ PetitSQLiteASTNodesParserTests >> testCreateTableWithConstraints [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testDeleteStatementSimple [
+PetitSQLiteASTNodesParserTest >> testDeleteStatementSimple [
 	super testDeleteStatementSimple.
 	
 	self assert: (result isMemberOf: SQLDeleteStmtNode).
@@ -305,7 +305,7 @@ PetitSQLiteASTNodesParserTests >> testDeleteStatementSimple [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testDeleteStatementWithComplexWhere [
+PetitSQLiteASTNodesParserTest >> testDeleteStatementWithComplexWhere [
 	super testDeleteStatementWithComplexWhere.
 	
 	self assert: (result isMemberOf: SQLDeleteStmtNode).
@@ -322,7 +322,7 @@ PetitSQLiteASTNodesParserTests >> testDeleteStatementWithComplexWhere [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testDeleteStatementWithSimpleWhere [
+PetitSQLiteASTNodesParserTest >> testDeleteStatementWithSimpleWhere [
 	super testDeleteStatementWithSimpleWhere.
 	
 	self assert: (result isMemberOf: SQLDeleteStmtNode).
@@ -339,7 +339,7 @@ PetitSQLiteASTNodesParserTests >> testDeleteStatementWithSimpleWhere [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testInsertStatmentIntoSpecificField [
+PetitSQLiteASTNodesParserTest >> testInsertStatmentIntoSpecificField [
 	"'INSERT INTO table_name (column1) VALUES (value1)'"
 	super testInsertStatmentIntoSpecificField.
 	
@@ -352,7 +352,7 @@ PetitSQLiteASTNodesParserTests >> testInsertStatmentIntoSpecificField [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testInsertStatmentIntoSpecificFields [
+PetitSQLiteASTNodesParserTest >> testInsertStatmentIntoSpecificFields [
 
 	"'INSERT INTO table_name (column1, column2, column3) VALUES (value1, ''value2'', value3)'"
 	super testInsertStatmentIntoSpecificFields.
@@ -372,7 +372,7 @@ PetitSQLiteASTNodesParserTests >> testInsertStatmentIntoSpecificFields [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testInsertStatmentIntoSpecificFieldsVariousTypes [
+PetitSQLiteASTNodesParserTest >> testInsertStatmentIntoSpecificFieldsVariousTypes [
 	"'INSERT INTO Persons VALUES (4,''Nilsen'', ''Johan'', ''Bakken2'', ''Stavanger'')'"
 	super testInsertStatmentIntoSpecificFieldsVariousTypes.
 	
@@ -391,7 +391,7 @@ PetitSQLiteASTNodesParserTests >> testInsertStatmentIntoSpecificFieldsVariousTyp
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testInsertStatmentIntoThreeValues [
+PetitSQLiteASTNodesParserTest >> testInsertStatmentIntoThreeValues [
 	"'INSERT INTO table_name VALUES (value1, value2, value3)'"
 	super testInsertStatmentIntoThreeValues.
 	
@@ -407,7 +407,7 @@ PetitSQLiteASTNodesParserTests >> testInsertStatmentIntoThreeValues [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testInsertStatmentOneValue [
+PetitSQLiteASTNodesParserTest >> testInsertStatmentOneValue [
 	"'INSERT INTO table_name VALUES (value1)'"
 	super testInsertStatmentOneValue.
 
@@ -421,7 +421,7 @@ PetitSQLiteASTNodesParserTests >> testInsertStatmentOneValue [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testSelectCoreWithComplexFrom [
+PetitSQLiteASTNodesParserTest >> testSelectCoreWithComplexFrom [
 
 	super testSelectCoreWithComplexFrom.
 	
@@ -430,7 +430,7 @@ PetitSQLiteASTNodesParserTests >> testSelectCoreWithComplexFrom [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testSelectCoreWithMoreTablesAndColumns [
+PetitSQLiteASTNodesParserTest >> testSelectCoreWithMoreTablesAndColumns [
 
 	super testSelectCoreWithMoreTablesAndColumns.
 			
@@ -442,7 +442,7 @@ PetitSQLiteASTNodesParserTests >> testSelectCoreWithMoreTablesAndColumns [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testSelectCoreWithQuestionMarksIntoTheWhere [
+PetitSQLiteASTNodesParserTest >> testSelectCoreWithQuestionMarksIntoTheWhere [
 
 	super testSelectCoreWithQuestionMarksIntoTheWhere.
 		
@@ -453,7 +453,7 @@ PetitSQLiteASTNodesParserTests >> testSelectCoreWithQuestionMarksIntoTheWhere [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testSelectCoreWithStar [ 
+PetitSQLiteASTNodesParserTest >> testSelectCoreWithStar [ 
 	
 	super testSelectCoreWithStar.
 			
@@ -464,7 +464,7 @@ PetitSQLiteASTNodesParserTests >> testSelectCoreWithStar [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testSelectCoreWithWhere [
+PetitSQLiteASTNodesParserTest >> testSelectCoreWithWhere [
 	super testSelectCoreWithWhere.
 	
 	self assert: (result isMemberOf: SQLSelectStmtNode).
@@ -474,7 +474,7 @@ PetitSQLiteASTNodesParserTests >> testSelectCoreWithWhere [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testSelectStatementComplex [
+PetitSQLiteASTNodesParserTest >> testSelectStatementComplex [
 	super testSelectStatementComplex.
 		
 	self assert: (result isMemberOf: SQLSelectStmtNode).
@@ -485,7 +485,7 @@ PetitSQLiteASTNodesParserTests >> testSelectStatementComplex [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testSelectStatementComplexWithCountStar [
+PetitSQLiteASTNodesParserTest >> testSelectStatementComplexWithCountStar [
 	
 	super testSelectStatementComplexWithCountStar.
 		
@@ -495,7 +495,7 @@ PetitSQLiteASTNodesParserTests >> testSelectStatementComplexWithCountStar [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testSelectStatementComplexWithOneTable [
+PetitSQLiteASTNodesParserTest >> testSelectStatementComplexWithOneTable [
 	
 	super testSelectStatementComplexWithOneTable.
 		
@@ -505,14 +505,14 @@ PetitSQLiteASTNodesParserTests >> testSelectStatementComplexWithOneTable [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testSignedNumberMultipleDigitsWithMinusSign [
+PetitSQLiteASTNodesParserTest >> testSignedNumberMultipleDigitsWithMinusSign [
 	super testSignedNumberMultipleDigitsWithMinusSign.
 	
 	self assert: (result = #(-3558)).
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testSignedNumberMultipleDigitsWithPlusSign [
+PetitSQLiteASTNodesParserTest >> testSignedNumberMultipleDigitsWithPlusSign [
 	
 	super testSignedNumberMultipleDigitsWithPlusSign.
 	
@@ -520,35 +520,35 @@ PetitSQLiteASTNodesParserTests >> testSignedNumberMultipleDigitsWithPlusSign [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testSignedNumberMultipleDigitsWithoutSign [
+PetitSQLiteASTNodesParserTest >> testSignedNumberMultipleDigitsWithoutSign [
 	super testSignedNumberMultipleDigitsWithoutSign.
 	
 	self assert: (result = #(3558)).
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testSignedNumbersSingleDigitWithMinusSign [
+PetitSQLiteASTNodesParserTest >> testSignedNumbersSingleDigitWithMinusSign [
 	super testSignedNumbersSingleDigitWithMinusSign.
 	
 	self assert: (result = #(-5)).
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testSignedNumbersSingleDigitWithPlusSign [
+PetitSQLiteASTNodesParserTest >> testSignedNumbersSingleDigitWithPlusSign [
 	super testSignedNumbersSingleDigitWithPlusSign.
 	
 	self assert: (result = #(8)). 
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testSignedNumbersSingleDigitWithoutPlusSign [
+PetitSQLiteASTNodesParserTest >> testSignedNumbersSingleDigitWithoutPlusSign [
 	super testSignedNumbersSingleDigitWithoutPlusSign.
 	
 	self assert: (result = #(8)).
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testTableConstraintCheckPart [ 
+PetitSQLiteASTNodesParserTest >> testTableConstraintCheckPart [ 
 	super testTableConstraintCheckPart.
 	
 	self assert: (result isMemberOf: SQLTableConstraintNode).
@@ -557,7 +557,7 @@ PetitSQLiteASTNodesParserTests >> testTableConstraintCheckPart [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testTableConstraintForeignKeyPartMoreFKs [
+PetitSQLiteASTNodesParserTest >> testTableConstraintForeignKeyPartMoreFKs [
 	super testTableConstraintForeignKeyPartMoreFKs.
 	
 	self assert: (result isMemberOf: SQLTableConstraintNode).
@@ -571,7 +571,7 @@ PetitSQLiteASTNodesParserTests >> testTableConstraintForeignKeyPartMoreFKs [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testTableConstraintForeignKeyPartOneFK [
+PetitSQLiteASTNodesParserTest >> testTableConstraintForeignKeyPartOneFK [
 	super testTableConstraintForeignKeyPartOneFK.
 	
 	self assert: (result isMemberOf: SQLTableConstraintNode ).
@@ -584,7 +584,7 @@ PetitSQLiteASTNodesParserTests >> testTableConstraintForeignKeyPartOneFK [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testTableConstraintPrimaryKeyPartMoreColumns [
+PetitSQLiteASTNodesParserTest >> testTableConstraintPrimaryKeyPartMoreColumns [
 	super testTableConstraintPrimaryKeyPartMoreColumns.
 	
 	self assert: (result isMemberOf: SQLTableConstraintNode).
@@ -596,7 +596,7 @@ PetitSQLiteASTNodesParserTests >> testTableConstraintPrimaryKeyPartMoreColumns [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testTableConstraintPrimaryKeyPartMoreUniqueColumns [
+PetitSQLiteASTNodesParserTest >> testTableConstraintPrimaryKeyPartMoreUniqueColumns [
 	super testTableConstraintPrimaryKeyPartMoreUniqueColumns.
 	
 	self assert: (result isMemberOf: SQLTableConstraintNode).
@@ -609,7 +609,7 @@ PetitSQLiteASTNodesParserTests >> testTableConstraintPrimaryKeyPartMoreUniqueCol
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testTableConstraintPrimaryKeyPartOneColumn [
+PetitSQLiteASTNodesParserTest >> testTableConstraintPrimaryKeyPartOneColumn [
 	super testTableConstraintPrimaryKeyPartOneColumn.
 
 	self assert: (result isMemberOf: SQLTableConstraintNode).
@@ -621,7 +621,7 @@ PetitSQLiteASTNodesParserTests >> testTableConstraintPrimaryKeyPartOneColumn [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testTableConstraintPrimaryKeyPartOneUniqueColumn [
+PetitSQLiteASTNodesParserTest >> testTableConstraintPrimaryKeyPartOneUniqueColumn [
 	super testTableConstraintPrimaryKeyPartOneUniqueColumn.
 	
 	self assert: (result isMemberOf: SQLTableConstraintNode).
@@ -633,7 +633,7 @@ PetitSQLiteASTNodesParserTests >> testTableConstraintPrimaryKeyPartOneUniqueColu
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testUpdateStatement [
+PetitSQLiteASTNodesParserTest >> testUpdateStatement [
 	super testUpdateStatement.
 	
 	self assert: (result isMemberOf: SQLUpdateStatementNode).
@@ -641,7 +641,7 @@ PetitSQLiteASTNodesParserTests >> testUpdateStatement [
 ]
 
 { #category : #tests }
-PetitSQLiteASTNodesParserTests >> testUpdateStatementLongerWhere [
+PetitSQLiteASTNodesParserTest >> testUpdateStatementLongerWhere [
 	super testUpdateStatementLongerWhere.
 
 	self assert: (result isMemberOf: SQLUpdateStatementNode).

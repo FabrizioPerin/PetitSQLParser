@@ -39,6 +39,13 @@ ConfigurationOfPetitSQLParser class >> loadDefaultWithoutPetit [
 
 ]
 
+{ #category : #loading }
+ConfigurationOfPetitSQLParser class >> loadStable [
+	(self project version: #stable) load.
+
+
+]
+
 { #category : #accessing }
 ConfigurationOfPetitSQLParser class >> project [
 
@@ -100,13 +107,41 @@ ConfigurationOfPetitSQLParser >> baseline11: spec [
 ]
 
 { #category : #baselines }
+ConfigurationOfPetitSQLParser >> baseline12: spec [ 
+	<version: '1.2-baseline'>
+	
+	spec for: #common do: [
+		spec blessing: #default.
+		spec repository: 'http://smalltalkhub.com/mc/Moose/PetitSQLParser/main'.
+		spec description: 'creating a new baseline that loads the project from Smalltalkhub'.
+		spec 
+			package: 'PetitSQLite-Parser' with: [spec requires: #('PetitParser for PetitSQLParser')];
+			package: 'PetitSQLite-Tests-Parser' with: [spec requires: #('PetitSQLite-Parser')];
+			package: 'PetitSQLite-AST' with: [spec requires: #('PetitSQLite-Parser')].
+			
+		spec group: 'Ast' with: #('PetitSQLite-AST' 'PetitSQLite-Parser' ).
+		spec group: 'Core' with: #( 'PetitSQLite-Parser').
+		spec group: 'Tests' with: #( 'PetitSQLite-Tests-Parser').
+		
+		spec group: 'default' with: #('Core' 'Tests' 'Ast').
+		
+		spec project: 'PetitParser for PetitSQLParser' with: [
+				spec
+					className: 'ConfigurationOfPetitParser';
+					file: 'ConfigurationOfPetitParser';
+					version: 'default';
+					repository: 'http://smalltalkhub.com/mc/Moose/PetitParser/main' ].
+	]
+]
+
+{ #category : #'default-versions' }
 ConfigurationOfPetitSQLParser >> default: spec [ 
 	<version: 'default'>
 	
-	self baseline11: spec
+	self baseline12: spec
 ]
 
-{ #category : #baselines }
+{ #category : #'default-versions' }
 ConfigurationOfPetitSQLParser >> defaultWithoutPetit: spec [ 
 	<version: 'defaultWithoutPetit'>
 	
@@ -126,12 +161,13 @@ ConfigurationOfPetitSQLParser >> defaultWithoutPetit: spec [
 	]
 ]
 
-{ #category : #baselines }
+{ #category : #'symbolic-version' }
 ConfigurationOfPetitSQLParser >> development: spec [ 
 	<symbolicVersion: #development>
 	
 	spec for: #'pharo1.3.x' version: '1.0-baseline'.
-	spec for: #'pharo1.4.x' version: '1.1-baseline'.
+	spec for: #'pharo1.4.x' version: '1.2-baseline'.
+	spec for: #'pharo2.x' version: '1.2-baseline'.
 
 ]
 
@@ -145,4 +181,29 @@ ConfigurationOfPetitSQLParser >> project [
 		constructor := (Smalltalk at: #MetacelloVersionConstructor) on: self.
 		project := constructor project.
 		project]
+]
+
+{ #category : #'symbolic-version' }
+ConfigurationOfPetitSQLParser >> stable: spec [
+	<symbolicVersion: #'stable'>
+
+	spec for: #'pharo1.4.x' version: '1.0'.
+	spec for: #'pharo1.3.x' version: '1.0'
+]
+
+{ #category : #versions }
+ConfigurationOfPetitSQLParser >> version10: spec [
+	<version: '1.0' imports: #('1.2-baseline' )>
+
+	spec for: #'common' do: [
+		spec blessing: #stable.
+		spec description: 'First release'.
+		spec author: 'usmambhatti'.
+		spec timestamp: '03/01/2013 18:11'.
+		spec project: 'PetitParser for PetitSQLParser' with: #stable.
+		spec 
+			package: 'PetitSQLite-Parser' with: 'PetitSQLite-Parser-TudorGirba.25';
+			package: 'PetitSQLite-Tests-Parser' with: 'PetitSQLite-Tests-Parser-TudorGirba.19';
+			package: 'PetitSQLite-AST' with: 'PetitSQLite-AST-TudorGirba.6'.].
+
 ]

@@ -112,7 +112,7 @@ ConfigurationOfPetitSQLParser >> baseline12: spec [
 	
 	spec for: #common do: [
 		spec blessing: #default.
-		spec repository: 'http://smalltalkhub.com/mc/Moose/PetitSQLParser/main'.
+		spec repository: 'http://www.smalltalkhub.com/mc/Moose/PetitSQLParser/main'.
 		spec description: 'creating a new baseline that loads the project from Smalltalkhub'.
 		spec 
 			package: 'PetitSQLite-Parser' with: [spec requires: #('PetitParser for PetitSQLParser')];
@@ -130,7 +130,7 @@ ConfigurationOfPetitSQLParser >> baseline12: spec [
 					className: 'ConfigurationOfPetitParser';
 					file: 'ConfigurationOfPetitParser';
 					version: 'default';
-					repository: 'http://smalltalkhub.com/mc/Moose/PetitParser/main' ].
+					repository: 'http://www.smalltalkhub.com/mc/Moose/PetitParser/main' ].
 	]
 ]
 

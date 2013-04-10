@@ -762,6 +762,17 @@ PetitSQLiteGrammarTest >> testCreateIndexUniqueIfNotExists [
 ]
 
 { #category : #tests }
+PetitSQLiteGrammarTest >> testCreateIndexUniqueWithComplexIdentitifers [
+
+	self 
+		parse:	'CREATE INDEX BTO_S01.XVERTXT4 ON BTO_S01.TVERTXT
+(C95826, C99995, C99996, C95836_1, C63391, 
+C95820, C95836_0, C63392, C99991, C99992, 
+C99993, C99994)'
+		rule: #createIndex.
+]
+
+{ #category : #tests }
 PetitSQLiteGrammarTest >> testCreateTable3 [
 
 	self 
@@ -982,6 +993,14 @@ PetitSQLiteGrammarTest >> testDatabase [
 	self 
 		parse: 'DataBase ' "result should be 'DataBase' "
 		rule: #database.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testDate [
+	
+	self 
+		parse: '2981-04-11'
+		rule: #date.
 ]
 
 { #category : #tests }
@@ -1769,6 +1788,13 @@ PetitSQLiteGrammarTest >> testLiteralValueCurrentTimestamp [
 ]
 
 { #category : #tests }
+PetitSQLiteGrammarTest >> testLiteralValueDate [
+	self 
+		parse: ' ''0001-01-01'' '
+	 	rule: #literalValue.
+]
+
+{ #category : #tests }
 PetitSQLiteGrammarTest >> testLiteralValueFloat [
 	self 
 		parse: ' 23 . 45 '
@@ -1796,6 +1822,13 @@ PetitSQLiteGrammarTest >> testLiteralValueString [
 		parse: 'something '
 	 	rule: #literalValue.
 
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testLiteralValueTimestamp [
+	self 
+		parse: '''0001-01-01 13:15:10'''
+	 	rule: #literalValue.
 ]
 
 { #category : #tests }
@@ -2750,6 +2783,26 @@ PetitSQLiteGrammarTest >> testTemporary [
 		parse: ' Temporary' "result should be 'Temporary' "
 		rule: #temporary.
 
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testTime [
+	
+	self 
+		parse: '29:86:70'
+		rule: #time.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testTimestamp [
+	
+	self 
+		parse: '2943-10-09 11:06:56'
+		rule: #timestamp.
+		
+	self 
+		parse: '2943-65-31 29:86:70'
+		rule: #timestamp.
 ]
 
 { #category : #tests }

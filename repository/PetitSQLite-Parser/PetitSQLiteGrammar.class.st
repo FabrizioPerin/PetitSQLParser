@@ -140,7 +140,10 @@ Class {
 		'expressionInRoundParentheses',
 		'identifiersInRoundParentheses',
 		'char',
-		'byte'
+		'byte',
+		'timestamp',
+		'date',
+		'time'
 	],
 	#category : #'PetitSQLite-Parser'
 }
@@ -365,10 +368,9 @@ PetitSQLiteGrammar >> createIndex [
 		unique optional ,  
 	index ,  
 		ifNotExists optional ,
-		(identifier , $. asParser trim) optional , "databaseName . indexName "
-	identifier ,
+	complexIdentifier,
 	on ,
-	identifier ,
+	complexIdentifier,
 	( $( asParser trim , (identifier separatedBy: $, asParser trim) , $) asParser trim ).
 ]
 
@@ -402,6 +404,12 @@ PetitSQLiteGrammar >> currentTimestamp [
 { #category : #tokens }
 PetitSQLiteGrammar >> database [
 	^'DATABASE' asParser caseInsensitive trim
+]
+
+{ #category : #'statements-elements' }
+PetitSQLiteGrammar >> date [
+	"Oracle format"
+	^(#digit asParser times: 4) flatten , $- asParser , (#digit asParser times: 2) flatten , $- asParser , (#digit asParser times: 2) flatten
 ]
 
 { #category : #tokens }
@@ -729,7 +737,7 @@ PetitSQLiteGrammar >> literalValue [
 	currentTime / 
 	$? asParser trim / 
 	($' asParser trim , $' asParser trim ) /
-	($' asParser trim optional , (floatingPointLiteral / integerLiteral / identifier / blobLiteral) , $' asParser trim optional ) 
+	($' asParser trim optional , (timestamp / date / floatingPointLiteral /  integerLiteral / identifier / blobLiteral) , $' asParser trim optional ) 
 
 ]
 
@@ -986,6 +994,18 @@ PetitSQLiteGrammar >> temp [
 { #category : #tokens }
 PetitSQLiteGrammar >> temporary [
 	^'TEMPORARY' asParser caseInsensitive trim
+]
+
+{ #category : #'statements-elements' }
+PetitSQLiteGrammar >> time [
+	"Oracle format"
+	^(#digit asParser times: 2) flatten , $: asParser , (#digit asParser times: 2) flatten , $: asParser , (#digit asParser times: 2) flatten
+]
+
+{ #category : #'statements-elements' }
+PetitSQLiteGrammar >> timestamp [
+	"Oracle format"
+	 ^date , whitespace , time
 ]
 
 { #category : #'statements-elements' }

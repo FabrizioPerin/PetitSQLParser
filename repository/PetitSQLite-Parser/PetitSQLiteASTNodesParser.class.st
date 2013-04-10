@@ -140,6 +140,22 @@ PetitSQLiteASTNodesParser >> complexIdentifier [
 ]
 
 { #category : #statements }
+PetitSQLiteASTNodesParser >> createIndex [
+	^super createIndex ==> [ :token | 
+		| indexNode |
+		
+		indexNode := SQLCreateIndexNode new.		
+
+		token second isNil ifFalse: [indexNode isUnique: true].
+
+		indexNode indexName: (token at: 5).
+		indexNode referenceTable: (token at: 7).
+		indexNode indexedColumnNames: ((token at: 8) second reject: [:each | each = $,]).
+		
+		indexNode]
+]
+
+{ #category : #statements }
 PetitSQLiteASTNodesParser >> createTable [
 
 	^super createTable ==> [ :token | 

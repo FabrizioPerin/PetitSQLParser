@@ -148,7 +148,7 @@ PetitSQLiteASTNodesParser >> createIndex [
 
 		token second isNil ifFalse: [indexNode isUnique: true].
 
-		indexNode indexName: (token at: 5).
+		indexNode indexName: ((token at: 5) subStrings: '.') second.
 		indexNode referenceTable: (token at: 7).
 		indexNode indexedColumnNames: ((token at: 8) second reject: [:each | each = $,]).
 		

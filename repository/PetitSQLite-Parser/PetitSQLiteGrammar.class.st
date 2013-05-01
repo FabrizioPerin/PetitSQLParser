@@ -143,7 +143,13 @@ Class {
 		'byte',
 		'timestamp',
 		'date',
-		'time'
+		'time',
+		'view',
+		'createView',
+		'timestampOracleFormat',
+		'timestampDB2Format',
+		'comment',
+		'label'
 	],
 	#category : #'PetitSQLite-Parser'
 }
@@ -327,6 +333,12 @@ PetitSQLiteGrammar >> columnTypes [
 	'smallint' asParser caseInsensitive trim. "MySQL specific type"
 ]
 
+{ #category : #statements }
+PetitSQLiteGrammar >> comment [
+	"http://www.sqlite.org/syntaxdiagrams.html#create-table-stmt"
+	^'COMMENT ON' asParser , $; asParser negate plus
+]
+
 { #category : #'statements-elements' }
 PetitSQLiteGrammar >> complexIdentifier [
 	^ (identifier , $. asParser) optional , identifier
@@ -371,7 +383,7 @@ PetitSQLiteGrammar >> createIndex [
 	complexIdentifier,
 	on ,
 	complexIdentifier,
-	( $( asParser trim , (identifier separatedBy: $, asParser trim) , $) asParser trim ).
+	indexedColumnsInRoundParentheses
 ]
 
 { #category : #statements }
@@ -384,6 +396,18 @@ PetitSQLiteGrammar >> createTable [
 	complexIdentifier , 
 	( ($( asParser trim , whitespace optional , tableColumnsDefinition plus , whitespace optional , $) asParser trim ) | 
 	( as , selectStatement ) ) 
+]
+
+{ #category : #statements }
+PetitSQLiteGrammar >> createView [
+	"http://www.sqlite.org/syntaxdiagrams.html#create-view-stmt"
+	^create , 
+		(temp / temporary) optional,  
+	view ,  
+		ifNotExists optional ,
+	complexIdentifier , 
+	as,
+	selectStatement
 ]
 
 { #category : #tokens }
@@ -726,6 +750,11 @@ PetitSQLiteGrammar >> keyword [
 
 ]
 
+{ #category : #statements }
+PetitSQLiteGrammar >> label [
+	^'LABEL ON' asParser , $; asParser negate plus
+]
+
 { #category : #'statements-elements' }
 PetitSQLiteGrammar >> literalValue [
 	"http://www.sqlite.org/syntaxdiagrams.html#literal-value"
@@ -930,7 +959,10 @@ PetitSQLiteGrammar >> sqlStatement [
 	selectStatement /
 	updateStatement /
 	deleteStatement /
-	insertStatement
+	insertStatement /
+	createView /
+	comment /
+	label
 	))
 ]
 
@@ -1004,6 +1036,16 @@ PetitSQLiteGrammar >> time [
 
 { #category : #'statements-elements' }
 PetitSQLiteGrammar >> timestamp [
+	^timestampOracleFormat / timestampDB2Format
+]
+
+{ #category : #'statements-elements' }
+PetitSQLiteGrammar >> timestampDB2Format [
+	^date , $- asParser , ((#digit asParser times: 2) flatten , $. asParser , (#digit asParser times: 2) flatten , $. asParser , (#digit asParser times: 2) flatten , ($. asParser , #digit asParser plus) optional flatten)
+]
+
+{ #category : #'statements-elements' }
+PetitSQLiteGrammar >> timestampOracleFormat [
 	"Oracle format"
 	 ^date , whitespace , time
 ]
@@ -1045,6 +1087,11 @@ PetitSQLiteGrammar >> updateStatement [
 { #category : #tokens }
 PetitSQLiteGrammar >> values [
 	^'VALUES' asParser caseInsensitive trim
+]
+
+{ #category : #tokens }
+PetitSQLiteGrammar >> view [
+	^'VIEW' asParser caseInsensitive trim
 ]
 
 { #category : #tokens }

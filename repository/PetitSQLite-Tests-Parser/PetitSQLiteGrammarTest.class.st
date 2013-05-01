@@ -607,6 +607,15 @@ PetitSQLiteGrammarTest >> testColumnTypesVarChar2 [
 ]
 
 { #category : #tests }
+PetitSQLiteGrammarTest >> testComment [
+	self 
+		parse: 'COMMENT ON TABLE DB2YTST.TPE0752
+  IS ''ISDP Beziehungsart (VPZ07521)''' "result should be 'ALL' "
+		rule: #comment.
+
+]
+
+{ #category : #tests }
 PetitSQLiteGrammarTest >> testCompoundOperatorExcept [
 	self 
 		parse: 'EXCEPT ' 
@@ -769,6 +778,22 @@ PetitSQLiteGrammarTest >> testCreateIndexUniqueWithComplexIdentitifers [
 (C95826, C99995, C99996, C95836_1, C63391, 
 C95820, C95836_0, C63392, C99991, C99992, 
 C99993, C99994)'
+		rule: #createIndex.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testCreateIndexWithAscDescColumns [
+
+	self 
+		parse:	'CREATE
+        INDEX DB2BLA.XGEO2
+       ON DB2BLA.TG
+        (
+         C40 ASC
+        ,C971 ASC
+        ,C932 DESC
+        ,C97 ASC
+        )'
 		rule: #createIndex.
 ]
 
@@ -952,6 +977,45 @@ PetitSQLiteGrammarTest >> testCreateTableWithConstraints [
     ON DELETE NO ACTION
     ON UPDATE CASCADE)'
 		rule:#createTable
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testCreateViewAsSelectSpecificFields [
+
+	self 
+		parse:	'CREATE VIEW
+       DB2.VBUE
+ AS SELECT 836, C962, 3425, 4, 365, 67, D63,
+    C69, C3, C8, C7, C8, C4, 0, 100,
+    C631, C3538, D638, C91, C92, C3, C4, C5,
+    C9
+ FROM DB2ST.TOB'
+		rule: #createView.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testCreateViewAsSelectSpecificFieldsandWhereCondition [
+
+	self 
+		parse:	'CREATE VIEW
+       DB2.VBUE
+ AS SELECT 836, C962, 3425, 4, 365, 67, D63,
+    C69, C3, C8, C7, C8, C4, 0, 100,
+    C631, C3538, D638, C91, C92, C3, C4, C5,
+    C9
+ FROM DB2ST.TOB
+WHERE C8 = 4556'
+		rule: #createView.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testCreateViewAsSelectStar [
+
+	self 
+		parse:	'CREATE VIEW
+       DBEW.VG1
+AS SELECT * FROM DBT.TGO'
+		rule: #createView.
 ]
 
 { #category : #tests }
@@ -1742,6 +1806,25 @@ PetitSQLiteGrammarTest >> testJoinSourceWithJoinOperation [
 	self 
 		parse: 'tab1.col natural join anotherCol' 
 		rule: #joinSource
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testLabelOn [
+	self 
+		parse: 'LABEL ON DB2YTST.TPE0752
+         (
+           C95836 IS ''AM95836_Art''
+         , C97125 IS ''AM97125_Sprache_(mehrspr._Text''
+         , C95795 IS ''AM95795_Rolle_From-To''
+         , C95788 IS ''AM95788_Rolle_To-From''
+         , C99991 IS ''AM99991_TS-GLTG-AB-T''
+         , C99992 IS ''AM99992_TS-GLTG-BIS-T''
+         , C99993 IS ''AM99993_TS-HIST-ED-T''
+         , C99994 IS ''AM99994_CHIST-USERID-T''
+         , C99995 IS ''AM99995_TS-HIST-ER-T''
+         , C99996 IS ''AM99996_CHIST-STATUS-T''
+         )'
+		rule: #label.
 ]
 
 { #category : #tests }
@@ -2889,6 +2972,17 @@ PetitSQLiteGrammarTest >> testValues [
 	self 
 		parse: ' Values ' "result should be 'Values' "
 		rule: #values.
+]
+
+{ #category : #tests }
+PetitSQLiteGrammarTest >> testView [
+	self 
+		parse: ' VIEW ' "result should be 'VIEW' "
+		rule: #view.
+
+	self 
+		parse: ' ViEw ' "result should be 'ViEw' "
+		rule: #view.
 ]
 
 { #category : #tests }

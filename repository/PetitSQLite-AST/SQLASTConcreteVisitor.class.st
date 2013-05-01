@@ -20,8 +20,18 @@ SQLASTConcreteVisitor >> visitColumnDefNode: anElement [
 ]
 
 { #category : #'as yet unclassified' }
+SQLASTConcreteVisitor >> visitCreateIndexNode: anElement [
+	^self importer ensureASQLIndex: anElement.
+]
+
+{ #category : #'as yet unclassified' }
 SQLASTConcreteVisitor >> visitCreateTableNode: anElement [
 	^self importer ensureATable: anElement.
+]
+
+{ #category : #'as yet unclassified' }
+SQLASTConcreteVisitor >> visitCreateViewNode: anElement [
+	^self importer ensureAView: anElement.
 ]
 
 { #category : #'as yet unclassified' }

@@ -38,6 +38,11 @@ SQLASTAbstractVisitor >> visitColumnDefNode: anElement [
 ]
 
 { #category : #'as yet unclassified' }
+SQLASTAbstractVisitor >> visitCreateIndexNode: anElement [
+	^ self visit: anElement
+]
+
+{ #category : #'as yet unclassified' }
 SQLASTAbstractVisitor >> visitCreateTableNode: anElement [
 	^ self visit: anElement
 ]

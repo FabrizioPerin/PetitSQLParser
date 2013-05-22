@@ -968,7 +968,6 @@ PetitSQLiteGrammar >> sqlStatement [
 
 { #category : #statements }
 PetitSQLiteGrammar >> sqlStatementList [
-	"http://www.sqlite.org/syntaxdiagrams.html#sql-stmt-list"
 	^(sqlStatement separatedBy: $; asParser trim)
 ]
 

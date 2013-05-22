@@ -171,6 +171,19 @@ PetitSQLiteASTNodesParser >> createTable [
 		tableNode]
 ]
 
+{ #category : #statements }
+PetitSQLiteASTNodesParser >> createView [
+
+	^super createView ==> [ :token | 
+		| viewNode |
+		
+		viewNode := SQLCreateViewStmtNode new.		
+
+		viewNode name: (token at: 5).
+
+		viewNode ]
+]
+
 { #category : #initialization }
 PetitSQLiteASTNodesParser >> deleteStatement [
 	^ super deleteStatement ==> [ :token | 

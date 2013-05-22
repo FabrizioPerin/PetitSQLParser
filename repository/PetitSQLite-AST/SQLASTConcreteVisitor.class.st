@@ -30,11 +30,6 @@ SQLASTConcreteVisitor >> visitCreateTableNode: anElement [
 ]
 
 { #category : #'as yet unclassified' }
-SQLASTConcreteVisitor >> visitCreateViewNode: anElement [
-	^self importer ensureAView: anElement.
-]
-
-{ #category : #'as yet unclassified' }
 SQLASTConcreteVisitor >> visitSelectStmtNode: anElement [
 	^self importer ensureSelectStmtNode: anElement.
 ]

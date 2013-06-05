@@ -162,8 +162,10 @@ PetitSQLiteASTNodesParser >> createTable [
 		| tableNode |
 		tableNode := SQLCreateTableStmtNode new.		
 
-		tableNode name: (token at: 5).
+		tableNode completeName: (token at: 5).
 
+		tableNode name: ( ( token at: 5 ) subStrings: $. asString ) last.
+		
 		tableNode columns: (((token at: 6) third first first) select: [:each | each isMemberOf: SQLColumnDefNode]).
 
 		tableNode constraints: (token at: 6) third first second.
@@ -179,7 +181,9 @@ PetitSQLiteASTNodesParser >> createView [
 		
 		viewNode := SQLCreateViewStmtNode new.		
 
-		viewNode name: (token at: 5).
+		viewNode completeName: (token at: 5).
+
+		viewNode name: ( ( token at: 5 ) subStrings: $. asString ) last.
 
 		viewNode ]
 ]

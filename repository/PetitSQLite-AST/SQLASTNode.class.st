@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'name',
-		'ast'
+		'ast',
+		'completeName'
 	],
 	#category : #'PetitSQLite-AST'
 }
@@ -26,6 +27,16 @@ SQLASTNode >> ast: anObject [
 { #category : #accessing }
 SQLASTNode >> children [
 	^#()
+]
+
+{ #category : #accessing }
+SQLASTNode >> completeName [
+	^completeName
+]
+
+{ #category : #accessing }
+SQLASTNode >> completeName: aString [ 
+	completeName := aString
 ]
 
 { #category : #accessing }

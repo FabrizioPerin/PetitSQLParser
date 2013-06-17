@@ -3,7 +3,8 @@ Class {
 	#superclass : #SQLASTNode,
 	#instVars : [
 		'columns',
-		'referenceTable'
+		'referenceTable',
+		'ofTables'
 	],
 	#category : #'PetitSQLite-AST'
 }
@@ -11,4 +12,14 @@ Class {
 { #category : #'as yet unclassified' }
 SQLCreateViewStmtNode >> accept: aVisitor [
 	^aVisitor visitCreateViewNode: self
+]
+
+{ #category : #'as yet unclassified' }
+SQLCreateViewStmtNode >> ofTables [
+	^ofTables
+]
+
+{ #category : #'as yet unclassified' }
+SQLCreateViewStmtNode >> ofTables: aCollectionOfTables [
+	ofTables := aCollectionOfTables
 ]

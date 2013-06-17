@@ -182,8 +182,9 @@ PetitSQLiteASTNodesParser >> createView [
 		viewNode := SQLCreateViewStmtNode new.		
 
 		viewNode completeName: (token at: 5).
-
 		viewNode name: ( ( token at: 5 ) subStrings: $. asString ) last.
+
+		viewNode ofTables: (token at: 7) from.
 
 		viewNode ]
 ]

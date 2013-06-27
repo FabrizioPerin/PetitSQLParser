@@ -18,15 +18,15 @@ PetitSQLiteASTNodesParser >> alterTable [
 		
 		alterTableNode := SQLAlterTableStmtNode new.
 		
-		alterTableNode nameOfTableToAlter: (token at: 4).
+		alterTableNode nameOfTableToAlter: token third.
 
-		((token at: 5) first matches: 'rename') ifTrue:[
+		((token at: 4) first matches: 'rename') ifTrue:[
 			alterTableNode isRename: true.
-			alterTableNode newTableName: (token at: 5) second].
+			alterTableNode newTableName: (token at: 4) second].
 		
-		((token at: 5) first matches: 'add') ifTrue: [
+		((token at: 4) first matches: 'add') ifTrue: [
 				alterTableNode isAddConstraint: true.
-				alterTableNode addConstraint: (token at: 5) second].
+				alterTableNode addConstraint: (token at: 4) second].
 
 		alterTableNode]
 ]
@@ -184,7 +184,7 @@ PetitSQLiteASTNodesParser >> createView [
 		viewNode completeName: (token at: 5).
 		viewNode name: ( ( token at: 5 ) subStrings: $. asString ) last.
 
-		viewNode ofTables: (token at: 7) from.
+		viewNode ofTables: (token at: 8) from.
 
 		viewNode ]
 ]

@@ -185,8 +185,7 @@ PetitSQLiteGrammar >> alterTable [
 	"http://www.sqlite.org/lang_altertable.html"
 	"modified to add the oracle defintion of contraints on PK and FK"
 	^alter , table , 
-		(identifier , $. asParser trim) optional , "databaseName . tableName "
-		identifier , 
+		complexIdentifier , 
 		( (renameTo , identifier) / (add , ( alterTableConstraintPKOracle / alterTableConstraintFKOracle / alterTableConstraintUnique / ( column optional, columnDef trim) trim))).
 	
 
@@ -406,6 +405,7 @@ PetitSQLiteGrammar >> createView [
 	view ,  
 		ifNotExists optional ,
 	complexIdentifier , 
+		( $( asParser trim , whitespace optional , tableColumnsDefinition plus , whitespace optional , $) asParser trim ) optional ,
 	as,
 	selectStatement
 ]
@@ -983,7 +983,7 @@ PetitSQLiteGrammar >> table [
 
 { #category : #'statements-elements' }
 PetitSQLiteGrammar >> tableColumnsDefinition [
-	^((columnDef separatedBy: $, asParser trim) ,  ($, asParser trim , tableConstraint ) star )
+	^( ( columnDef separatedBy: $, asParser trim ) ,  ( $, asParser trim , tableConstraint ) star )
 ]
 
 { #category : #constraints }

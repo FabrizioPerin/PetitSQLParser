@@ -766,7 +766,8 @@ PetitSQLiteGrammar >> literalValue [
 	currentTime / 
 	$? asParser trim / 
 	($' asParser trim , $' asParser trim ) /
-	($' asParser trim optional , (timestamp / date / floatingPointLiteral /  integerLiteral / identifier / blobLiteral) , $' asParser trim optional ) 
+	($' asParser trim optional , (timestamp / date / floatingPointLiteral /  integerLiteral / complexIdentifier / blobLiteral) , $' asParser trim optional ) "/
+	complexIdentifier"
 
 ]
 

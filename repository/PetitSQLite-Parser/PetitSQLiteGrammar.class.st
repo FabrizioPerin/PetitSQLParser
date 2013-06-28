@@ -495,6 +495,7 @@ PetitSQLiteGrammar >> expression [
 			g prefix: '-' do: [ :op :a | { op. a } ].
 			g prefix: '+' do: [ :op :a | { op. a } ].
 			g prefix: '~' do: [ :op :a | { op. a } ].
+			"g prefix: ':' do: [ :op :a | { op. a } ]."
 			g prefix: 'NOT ' do: [ :op :a | { op. a } ] ];
 		group: [ :g |
 			g left: '||' asParser trim do: [ :a :op :b | { a. op. b } ] ];
@@ -607,7 +608,7 @@ PetitSQLiteGrammar >> groupBy [
 
 { #category : #'statements-elements' }
 PetitSQLiteGrammar >> identifier [
-	^ (keyword not , ((#letter asParser / $_ asParser / #digit asParser / $$ asParser / '://' asParser / $< asParser / $% asParser / $# asParser / $> asParser / $@ asParser ) plus flatten trim)) ==>  #second
+	^ (keyword not , ((#letter asParser / $_ asParser / #digit asParser / $$ asParser / '://' asParser / $< asParser / $% asParser / $# asParser / $> asParser / $@ asParser / $: asParser) plus flatten trim)) ==>  #second
 ]
 
 { #category : #elementsInParentheses }

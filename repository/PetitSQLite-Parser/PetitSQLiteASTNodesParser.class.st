@@ -33,66 +33,57 @@ PetitSQLiteASTNodesParser >> alterTable [
 
 { #category : #'statements-elements' }
 PetitSQLiteASTNodesParser >> alterTableConstraintFKOracle [
-	^super alterTableConstraintFKOracle ==> [ :token | 
-		| newConstr |
-		
-		newConstr := SQLTableConstraintNode new.
-		
-		token first isNil 
-			ifFalse: [
-				newConstr name: token first second].
-	
-		(token second matches: 'FOREIGN KEY') 
-			ifTrue: [
-				newConstr isFKConstraint: true.
-				newConstr isPKConstraint: false.
-				newConstr isUnique: false].
-		
-		(token at: 4) do: [:el | el isString ifTrue: [newConstr addFKColumnName: el]].
-			
-		((token at: 6) first matches: 'references') 
-			ifTrue: [newConstr referencedTableName: (token at: 6) second].
-		
-		((token at: 6) third second) do: [:el | 
-			el isCollection ifTrue: [newConstr addPKColumnName: el first]].
-		
-		newConstr.]
+	^ super alterTableConstraintFKOracle
+		==> [ :token | 
+			| newConstr |
+			newConstr := SQLTableConstraintNode new.
+			token first ifNotNil: [ newConstr name: token first second ].
+			(token second matches: 'FOREIGN KEY')
+				ifTrue: [ 
+					newConstr isFKConstraint: true.
+					newConstr isPKConstraint: false.
+					newConstr isUnique: false ].
+			(token at: 4)
+				do: [ :el | 
+					el isString
+						ifTrue: [ newConstr addFKColumnName: el ] ].
+			((token at: 6) first matches: 'references')
+				ifTrue: [ newConstr referencedTableName: (token at: 6) second ].
+			(token at: 6) third second
+				do: [ :el | 
+					el isCollection
+						ifTrue: [ newConstr addPKColumnName: el first ] ].
+			newConstr ]
 ]
 
 { #category : #'statements-elements' }
 PetitSQLiteASTNodesParser >> alterTableConstraintPKOracle [
-	^super alterTableConstraintPKOracle ==> [ :token | 
-		| newConstr |
-		
-		newConstr := SQLTableConstraintNode new.
-		
-		token first isNil
-			ifFalse: [newConstr name: token first second].
-		
-		newConstr isPKConstraint: true.
-				
-		(token at: 4) do: [:el | el isString ifTrue: [newConstr addPKColumnName: el]].
-
-		newConstr].
-
+	^ super alterTableConstraintPKOracle
+		==> [ :token | 
+			| newConstr |
+			newConstr := SQLTableConstraintNode new.
+			token first ifNotNil: [ newConstr name: token first second ].
+			newConstr isPKConstraint: true.
+			(token at: 4)
+				do: [ :el | 
+					el isString
+						ifTrue: [ newConstr addPKColumnName: el ] ].
+			newConstr ]
 ]
 
 { #category : #'statements-elements' }
 PetitSQLiteASTNodesParser >> alterTableConstraintUnique [
-	^super alterTableConstraintUnique ==> [ :token | 
-		| newConstr |
-		
-		newConstr := SQLTableConstraintNode new.
-		
-		token first isNil
-			ifFalse: [newConstr name: token first second].
-		
-		newConstr isUnique: true.
-				
-		(token at: 4) do: [:el | el isString ifTrue: [newConstr addUniqueColumnName: el]].
-		
-		newConstr].
-
+	^ super alterTableConstraintUnique
+		==> [ :token | 
+			| newConstr |
+			newConstr := SQLTableConstraintNode new.
+			token first ifNotNil: [ newConstr name: token first second ].
+			newConstr isUnique: true.
+			(token at: 4)
+				do: [ :el | 
+					el isString
+						ifTrue: [ newConstr addUniqueColumnName: el ] ].
+			newConstr ]
 ]
 
 { #category : #statements }
@@ -117,16 +108,14 @@ PetitSQLiteASTNodesParser >> columnConstraint [
 
 { #category : #statements }
 PetitSQLiteASTNodesParser >> columnDef [
-	^super columnDef ==> [ :token | 
-		| colNode |
-
-		colNode := SQLColumnDefNode new.
-		
-		colNode name: token second.
-		token third isNil ifFalse: [colNode type: token third first.	].
-		colNode constraints: (token at: 4).
-		
-		colNode]
+	^ super columnDef
+		==> [ :token | 
+			| colNode |
+			colNode := SQLColumnDefNode new.
+			colNode name: token second.
+			token third ifNotNil: [ colNode type: token third first ].
+			colNode constraints: (token at: 4).
+			colNode ]
 ]
 
 { #category : #'statements-elements' }
@@ -141,18 +130,15 @@ PetitSQLiteASTNodesParser >> complexIdentifier [
 
 { #category : #statements }
 PetitSQLiteASTNodesParser >> createIndex [
-	^super createIndex ==> [ :token | 
-		| indexNode |
-		
-		indexNode := SQLCreateIndexNode new.		
-
-		token second isNil ifFalse: [indexNode isUnique: true].
-
-		indexNode indexName: ((token at: 5) subStrings: '.') second.
-		indexNode referenceTable: (token at: 7).
-		indexNode indexedColumnNames: ((token at: 8) second reject: [:each | each = $,]).
-		
-		indexNode]
+	^ super createIndex
+		==> [ :token | 
+			| indexNode |
+			indexNode := SQLCreateIndexNode new.
+			token second ifNotNil: [ indexNode isUnique: true ].
+			indexNode indexName: ((token at: 5) subStrings: '.') second.
+			indexNode referenceTable: (token at: 7).
+			indexNode indexedColumnNames: ((token at: 8) second reject: [ :each | each = $, ]).
+			indexNode ]
 ]
 
 { #category : #statements }
@@ -191,19 +177,16 @@ PetitSQLiteASTNodesParser >> createView [
 
 { #category : #initialization }
 PetitSQLiteASTNodesParser >> deleteStatement [
-	^ super deleteStatement ==> [ :token | 
+	^ super deleteStatement
+		==> [ :token | 
 			| deleteStmt |
-			
 			deleteStmt := SQLDeleteStmtNode new.
-			
 			deleteStmt addFrom: token third.
-			
-			(token at: 4) isNil
-				ifFalse: [ 
+			(token at: 4)
+				ifNotNil: [ 
 					| conditions |
 					conditions := (token at: 4) select: [ :each | each isMemberOf: Array ].
 					conditions do: [ :condition | deleteStmt addWhere: condition ] ].
-			
 			deleteStmt ast: token.
 			deleteStmt ]
 ]
@@ -228,20 +211,19 @@ PetitSQLiteASTNodesParser >> identifiersInRoundParentheses [
 
 { #category : #initialization }
 PetitSQLiteASTNodesParser >> insertStatement [
-	^super insertStatement ==> [:token |
-		| insertStmt |
-		insertStmt := SQLInsertStatementNode new.
-		
-		insertStmt table: (token at: 4). 
-		(token at: 5) isEmpty ifFalse:[
-			(token at: 5) first isNil ifFalse: [
-				insertStmt affectedColumns: ((token at: 5) first reject: [:each | each = $,])].
-		 	(token at: 5) second isNil ifFalse: [
-				(token at: 5) second isArray ifTrue: [
-					insertStmt values: ((token at: 5) second third reject: [:each | each = $,])]] ].
-		
-		insertStmt
-		]
+	^ super insertStatement
+		==> [ :token | 
+			| insertStmt |
+			insertStmt := SQLInsertStatementNode new.
+			insertStmt table: (token at: 4).
+			(token at: 5) isEmpty
+				ifFalse: [ 
+					(token at: 5) first ifNotNil: [ insertStmt affectedColumns: ((token at: 5) first reject: [ :each | each = $, ]) ].
+					(token at: 5) second
+						ifNotNil: [ 
+							(token at: 5) second isArray
+								ifTrue: [ insertStmt values: ((token at: 5) second third reject: [ :each | each = $, ]) ] ] ].
+			insertStmt ]
 ]
 
 { #category : #'statements-elements' }
@@ -302,10 +284,10 @@ PetitSQLiteASTNodesParser >> signedNumber [
 
 { #category : #initialization }
 PetitSQLiteASTNodesParser >> tableConstraint [
-	^super tableConstraint ==> [:token | 
-		token first isNil ifFalse: [
-			token second name: token first second ].
-		token second].
+	^ super tableConstraint
+		==> [ :token | 
+			token first ifNotNil: [ token second name: token first second ].
+			token second ]
 ]
 
 { #category : #'statements-elements' }

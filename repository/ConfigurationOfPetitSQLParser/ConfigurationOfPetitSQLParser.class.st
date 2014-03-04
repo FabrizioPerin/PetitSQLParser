@@ -129,6 +129,34 @@ ConfigurationOfPetitSQLParser >> baseline12: spec [
 				spec
 					className: 'ConfigurationOfPetitParser';
 					file: 'ConfigurationOfPetitParser';
+					version: '1.8-snapshot';
+					repository: 'http://www.smalltalkhub.com/mc/Moose/PetitParser/main' ].
+	]
+]
+
+{ #category : #'as yet unclassified' }
+ConfigurationOfPetitSQLParser >> baseline13: spec [ 
+	<version: '1.3-baseline'>
+	
+	spec for: #common do: [
+		spec blessing: #default.
+		spec repository: 'http://www.smalltalkhub.com/mc/Moose/PetitSQLParser/main'.
+		spec description: 'creating a new baseline that loads the project from Smalltalkhub'.
+		spec 
+			package: 'PetitSQLite-Parser' with: [spec requires: #('PetitParser for PetitSQLParser')];
+			package: 'PetitSQLite-Tests-Parser' with: [spec requires: #('PetitSQLite-Parser')];
+			package: 'PetitSQLite-AST' with: [spec requires: #('PetitSQLite-Parser')].
+			
+		spec group: 'Ast' with: #('PetitSQLite-AST' 'PetitSQLite-Parser' ).
+		spec group: 'Core' with: #( 'PetitSQLite-Parser').
+		spec group: 'Tests' with: #( 'PetitSQLite-Tests-Parser').
+		
+		spec group: 'default' with: #('Core' 'Tests' 'Ast').
+		
+		spec project: 'PetitParser for PetitSQLParser' with: [
+				spec
+					className: 'ConfigurationOfPetitParser';
+					file: 'ConfigurationOfPetitParser';
 					version: 'default';
 					repository: 'http://www.smalltalkhub.com/mc/Moose/PetitParser/main' ].
 	]
@@ -168,7 +196,7 @@ ConfigurationOfPetitSQLParser >> development: spec [
 	spec for: #'pharo1.3.x' version: '1.0-baseline'.
 	spec for: #'pharo1.4.x' version: '1.2-baseline'.
 	spec for: #'pharo2.x' version: '1.2-baseline'.
-	spec for: #'pharo3.x' version: '1.2-baseline'.
+	spec for: #'pharo3.x' version: '1.3-baseline'.
 	
 ]
 
@@ -206,5 +234,22 @@ ConfigurationOfPetitSQLParser >> version10: spec [
 			package: 'PetitSQLite-Parser' with: 'PetitSQLite-Parser-TudorGirba.25';
 			package: 'PetitSQLite-Tests-Parser' with: 'PetitSQLite-Tests-Parser-TudorGirba.19';
 			package: 'PetitSQLite-AST' with: 'PetitSQLite-AST-TudorGirba.6'.].
+
+]
+
+{ #category : #'as yet unclassified' }
+ConfigurationOfPetitSQLParser >> version20: spec [
+	<version: '2.0' imports: #('1.2-baseline' )>
+
+	spec for: #'common' do: [
+		spec blessing: #stable.
+		spec description: 'First release'.
+		spec author: 'FabrizioPerin'.
+		spec timestamp: '04/03/2014 11:00'.
+		spec project: 'PetitParser for PetitSQLParser' with: #stable.
+		spec 
+			package: 'PetitSQLite-Parser' with: 'PetitSQLite-Parser-AndreHora.35';
+			package: 'PetitSQLite-Tests-Parser' with: 'PetitSQLite-Tests-Parser-FabrizioPerin.24';
+			package: 'PetitSQLite-AST' with: 'PetitSQLite-AST-FabrizioPerin.12'.].
 
 ]

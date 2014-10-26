@@ -157,7 +157,7 @@ ConfigurationOfPetitSQLParser >> baseline13: spec [
 				spec
 					className: 'ConfigurationOfPetitParser';
 					file: 'ConfigurationOfPetitParser';
-					version: 'default';
+					version: #development;
 					repository: 'http://www.smalltalkhub.com/mc/Moose/PetitParser/main' ].
 	]
 ]

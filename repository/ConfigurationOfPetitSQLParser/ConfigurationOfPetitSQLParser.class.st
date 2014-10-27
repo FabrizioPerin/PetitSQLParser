@@ -134,7 +134,7 @@ ConfigurationOfPetitSQLParser >> baseline12: spec [
 	]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #baselines }
 ConfigurationOfPetitSQLParser >> baseline13: spec [ 
 	<version: '1.3-baseline'>
 	

@@ -238,6 +238,23 @@ ConfigurationOfPetitSQLParser >> version10: spec [
 
 ]
 
+{ #category : #versions }
+ConfigurationOfPetitSQLParser >> version13: spec [
+	<version: '1.3' imports: #('1.3-baseline' )>
+
+	spec for: #'common' do: [
+		spec blessing: #stable.
+		spec description: 'For Moose 5'.
+		spec author: 'StephanEggermont'.
+		spec timestamp: '12/12/2014 11:32'.
+		spec project: 'PetitParser for PetitSQLParser' with: #stable.
+		spec 
+			package: 'PetitSQLite-Parser' with: 'PetitSQLite-Parser-AndreHora.35';
+			package: 'PetitSQLite-Tests-Parser' with: 'PetitSQLite-Tests-Parser-FabrizioPerin.24';
+			package: 'PetitSQLite-AST' with: 'PetitSQLite-AST-FabrizioPerin.12'].
+
+]
+
 { #category : #'as yet unclassified' }
 ConfigurationOfPetitSQLParser >> version20: spec [
 	<version: '2.0' imports: #('1.2-baseline' )>

@@ -218,7 +218,9 @@ ConfigurationOfPetitSQLParser >> stable: spec [
 	<symbolicVersion: #'stable'>
 
 	spec for: #'pharo1.4.x' version: '1.0'.
-	spec for: #'pharo1.3.x' version: '1.0'
+	spec for: #'pharo1.3.x' version: '1.0'.
+	spec for: #'pharo3.x' version: 1.3.
+	spec for: #'pharo4.x' version: 1.3.	
 ]
 
 { #category : #versions }

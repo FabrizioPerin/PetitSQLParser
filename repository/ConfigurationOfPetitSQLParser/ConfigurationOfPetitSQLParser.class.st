@@ -225,7 +225,8 @@ ConfigurationOfPetitSQLParser >> stable: spec [
 
 	spec for: #'pharo1.4.x' version: '1.0'.
 	spec for: #'pharo1.3.x' version: '1.0'.
-	spec for: #common version: '2.0'
+	spec for: #'pharo3.x' version: '1.3'.
+	spec for: #'pharo4.x' version: '1.3'.	
 ]
 
 { #category : #versions }
@@ -242,6 +243,23 @@ ConfigurationOfPetitSQLParser >> version10: spec [
 			package: 'PetitSQLite-Parser' with: 'PetitSQLite-Parser-TudorGirba.25';
 			package: 'PetitSQLite-Tests-Parser' with: 'PetitSQLite-Tests-Parser-TudorGirba.19';
 			package: 'PetitSQLite-AST' with: 'PetitSQLite-AST-TudorGirba.6'.].
+
+]
+
+{ #category : #versions }
+ConfigurationOfPetitSQLParser >> version13: spec [
+	<version: '1.3' imports: #('1.3-baseline' )>
+
+	spec for: #'common' do: [
+		spec blessing: #stable.
+		spec description: 'For Moose 5'.
+		spec author: 'StephanEggermont'.
+		spec timestamp: '12/12/2014 11:32'.
+		spec project: 'PetitParser for PetitSQLParser' with: #stable.
+		spec 
+			package: 'PetitSQLite-Parser' with: 'PetitSQLite-Parser-AndreHora.35';
+			package: 'PetitSQLite-Tests-Parser' with: 'PetitSQLite-Tests-Parser-FabrizioPerin.24';
+			package: 'PetitSQLite-AST' with: 'PetitSQLite-AST-FabrizioPerin.12'].
 
 ]
 

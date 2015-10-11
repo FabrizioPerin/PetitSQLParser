@@ -193,7 +193,7 @@ ConfigurationOfPetitSQLParser >> defaultWithoutPetit: spec [
 ConfigurationOfPetitSQLParser >> development: spec [
 	<symbolicVersion: #'development'>
 
-	spec for: #'common' version: '1.1-baseline'.
+	spec for: #'common' version: '1.3-baseline'.
 
 	spec for: #'pharo1.3.x' version: '1.0-baseline'.
 

@@ -135,7 +135,7 @@ PetitSQLiteASTNodesParser >> createIndex [
 			| indexNode |
 			indexNode := SQLCreateIndexNode new.
 			token second ifNotNil: [ indexNode isUnique: true ].
-			indexNode indexName: ((token at: 5) subStrings: '.') second.
+			indexNode indexName: ((token at: 5) substrings: '.') second.
 			indexNode referenceTable: (token at: 7).
 			indexNode indexedColumnNames: ((token at: 8) second reject: [ :each | each = $, ]).
 			indexNode ]
@@ -150,7 +150,7 @@ PetitSQLiteASTNodesParser >> createTable [
 
 		tableNode completeName: (token at: 5).
 
-		tableNode name: ( ( token at: 5 ) subStrings: $. asString ) last.
+		tableNode name: ( ( token at: 5 ) substrings: $. asString ) last.
 		
 		tableNode columns: (((token at: 6) third first first) select: [:each | each isMemberOf: SQLColumnDefNode]).
 
@@ -168,7 +168,7 @@ PetitSQLiteASTNodesParser >> createView [
 		viewNode := SQLCreateViewStmtNode new.		
 
 		viewNode completeName: (token at: 5).
-		viewNode name: ( ( token at: 5 ) subStrings: $. asString ) last.
+		viewNode name: ( ( token at: 5 ) substrings: $. asString ) last.
 
 		viewNode ofTables: (token at: 8) from.
 

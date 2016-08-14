@@ -158,6 +158,7 @@ ConfigurationOfPetitSQLParser >> baseline13: spec [
 					className: 'ConfigurationOfPetitParser';
 					file: 'ConfigurationOfPetitParser';
 					version: #development;
+					loads: #('Core' 'Tests' );
 					repository: 'http://www.smalltalkhub.com/mc/Moose/PetitParser/main' ].
 	]
 ]
@@ -205,6 +206,8 @@ ConfigurationOfPetitSQLParser >> development: spec [
 
 	spec for: #'pharo4.x' version: '1.3-baseline'.
 
+	spec for: #'pharo5.x' version: #'stable'.
+
 ]
 
 { #category : #accessing }
@@ -224,12 +227,17 @@ ConfigurationOfPetitSQLParser >> stable: spec [
 	<symbolicVersion: #'stable'>
 
 	spec for: #'common' version: '1.3'.
-	
-	spec for: #'pharo1.4.x' version: '1.0'.
+
 	spec for: #'pharo1.3.x' version: '1.0'.
+
+	spec for: #'pharo1.4.x' version: '1.0'.
+
 	spec for: #'pharo3.x' version: '1.3'.
-	spec for: #'pharo4.x' version: '1.3'.	
-	
+
+	spec for: #'pharo4.x' version: '1.3'.
+
+	spec for: #'pharo5.x' version: '3.0'.
+
 ]
 
 { #category : #versions }
@@ -280,5 +288,22 @@ ConfigurationOfPetitSQLParser >> version20: spec [
 			package: 'PetitSQLite-Parser' with: 'PetitSQLite-Parser-AndreHora.35';
 			package: 'PetitSQLite-Tests-Parser' with: 'PetitSQLite-Tests-Parser-FabrizioPerin.24';
 			package: 'PetitSQLite-AST' with: 'PetitSQLite-AST-FabrizioPerin.12'.].
+
+]
+
+{ #category : #versions }
+ConfigurationOfPetitSQLParser >> version30: spec [
+	<version: '3.0' imports: #('1.3-baseline' )>
+
+	spec for: #'common' do: [
+		spec blessing: #'stable'.
+		spec description: 'Moose 6.0 release'.
+		spec author: 'TudorGirba'.
+		spec timestamp: '8/14/2016 20:44'.
+		spec project: 'PetitParser for PetitSQLParser' with: #'stable'.
+		spec 
+			package: 'PetitSQLite-Parser' with: 'PetitSQLite-Parser-TudorGirba.36';
+			package: 'PetitSQLite-Tests-Parser' with: 'PetitSQLite-Tests-Parser-FabrizioPerin.24';
+			package: 'PetitSQLite-AST' with: 'PetitSQLite-AST-FabrizioPerin.12'. ].
 
 ]

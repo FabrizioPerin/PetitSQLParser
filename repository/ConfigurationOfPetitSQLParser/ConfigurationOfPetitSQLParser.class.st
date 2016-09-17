@@ -163,6 +163,31 @@ ConfigurationOfPetitSQLParser >> baseline13: spec [
 	]
 ]
 
+{ #category : #baselines }
+ConfigurationOfPetitSQLParser >> baseline14: spec [ 
+	<version: '1.4-baseline'>
+	
+	spec for: #common do: [
+		spec blessing: #default.
+		spec repository: 'http://www.smalltalkhub.com/mc/Moose/PetitSQLParser/main'.
+		spec description: 'creating a new baseline that loads the project from Smalltalkhub'.
+		spec 
+			package: 'PetitSQLite-Parser' with: [spec requires: #('PetitParser2')];
+			package: 'PetitSQLite-Tests-Parser' with: [spec requires: #('PetitSQLite-Parser')];
+			package: 'PetitSQLite-AST' with: [spec requires: #('PetitSQLite-Parser')].
+			
+		spec group: 'Ast' with: #('PetitSQLite-AST' 'PetitSQLite-Parser' ).
+		spec group: 'Core' with: #( 'PetitSQLite-Parser').
+		spec group: 'Tests' with: #( 'PetitSQLite-Tests-Parser').
+		
+		spec group: 'default' with: #('Core' 'Tests' 'Ast').
+		
+		spec	baseline: 'PetitParser2' with: [
+				spec
+				 	repository: 'github://kursjan/petitparser2' ].
+	]
+]
+
 { #category : #'default-versions' }
 ConfigurationOfPetitSQLParser >> default: spec [ 
 	<version: 'default'>
@@ -206,7 +231,7 @@ ConfigurationOfPetitSQLParser >> development: spec [
 
 	spec for: #'pharo5.x' version: #'stable'.
 	
-	spec for: #'pharo6.x' version: '1.3-baseline'
+	spec for: #'pharo6.x' version: '1.4-baseline'
 ]
 
 { #category : #accessing }

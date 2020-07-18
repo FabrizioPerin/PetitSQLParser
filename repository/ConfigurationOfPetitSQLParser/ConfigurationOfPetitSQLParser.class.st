@@ -194,8 +194,8 @@ ConfigurationOfPetitSQLParser >> baseline15: spec [
 	
 	spec for: #common do: [
 		spec blessing: #default.
-		spec repository: 'http://www.smalltalkhub.com/mc/Moose/PetitSQLParser/main'.
-		spec description: 'creating a new baseline that loads the project from Smalltalkhub'.
+		spec repository: 'http://www.squeaksource.com/PetitSQLParser'.
+		spec description: 'Baseline that loads the project from squeaksource'.
 		spec 
 			package: 'PetitSQLite-Parser' ;
 			package: 'PetitSQLite-Tests-Parser' with: [spec requires: #('PetitSQLite-Parser')];
